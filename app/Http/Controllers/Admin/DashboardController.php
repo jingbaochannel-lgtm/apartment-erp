@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'branches' => ApartmentProfile::query()->withoutApartmentScope()->count(),
+            'branches' => ApartmentProfile::query()->count(),
             'tenants' => Tenant::query()->count(),
             'rooms' => Room::query()->count(),
             'occupied_rooms' => Room::query()->where('status', 'occupied')->count(),

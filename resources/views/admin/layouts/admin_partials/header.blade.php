@@ -7,12 +7,12 @@
     $apartments = collect();
     $currentApartmentId = null;
     if (Route::has('admin.dashboard') && \Schema::hasTable('apartment_profiles')) {
-        $currentApartmentId = session('active_apartment_id');
+        $currentApartmentId = session('current_apartment_id');
         $apartments = \App\Models\ApartmentProfile::query()
-            ->orderBy('apartment_name')
+            ->orderBy('name')
             ->limit(50)
-            ->get(['id', 'apartment_name'])
-            ->mapWithKeys(fn ($a) => [$a->id => $a->apartment_name]);
+            ->get(['id', 'name'])
+            ->mapWithKeys(fn ($a) => [$a->id => $a->name]);
     }
 @endphp
 
@@ -77,7 +77,7 @@
                                 <li>
                                     <form method="POST" action="{{ route('apartment.switch') }}" class="d-block">
                                         @csrf
-                                        <input type="hidden" name="apartment_id" value="{{ $id }}">
+                                        <input type="hidden" name="apartment_profile_id" value="{{ $id }}">
                                         <button type="submit" class="dropdown-item @if ($id === $currentApartmentId) active @endif">
                                             <i class="bi bi-house-door me-2"></i>{{ $name }}
                                         </button>
@@ -115,7 +115,7 @@
                         <div class="user-setting d-flex align-items-center gap-1">
                             <img src="{{ asset('assets/backend') }}/assets/images/avatars/avatar-1.png" class="user-img" alt="">
                             <div class="user-name d-none d-sm-block">
-                                {{ $user?->full_name ?? $user?->username ?? __('app.menu.dashboard') }}
+                                {{ $user?->name ?? $user?->email ?? __('app.auth.guest') }}
                             </div>
                         </div>
                     </a>
@@ -126,7 +126,7 @@
                                     <img src="{{ asset('assets/backend') }}/assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="60" height="60">
                                     <div class="ms-3">
                                         <h6 class="mb-0 dropdown-user-name">
-                                            {{ $user?->full_name ?? __('app.menu.dashboard') }}
+                                            {{ $user?->name ?? __('app.auth.guest') }}
                                         </h6>
                                         <small class="mb-0 dropdown-user-designation text-secondary">
                                             {{ $user?->email ?? '' }}

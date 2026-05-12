@@ -23,7 +23,6 @@ class ApartmentSwitcherController extends Controller
         $apartmentId = (int) $request->input('apartment_profile_id');
 
         $exists = ApartmentProfile::query()
-            ->withoutApartmentScope()
             ->whereKey($apartmentId)
             ->exists();
 
