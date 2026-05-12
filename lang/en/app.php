@@ -73,6 +73,18 @@ return [
         'language_changed' => 'Language switched.',
         'branch_changed' => 'Branch switched.',
         'validation_failed' => 'Please correct the errors below.',
+        'logged_in' => 'Welcome back.',
+        'logged_out' => 'You have been signed out.',
+    ],
+
+    'auth' => [
+        'sign_in' => 'Sign in',
+        'email' => 'Email',
+        'password' => 'Password',
+        'remember_me' => 'Remember me',
+        'failed' => 'Invalid email or password.',
+        'guest' => 'Guest',
+        'demo_hint' => 'Demo: admin@apartment-erp.local / password',
     ],
 
     'dialogs' => [

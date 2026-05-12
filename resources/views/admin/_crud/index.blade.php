@@ -67,7 +67,7 @@
         const slug   = @json($slug);
         const ajax   = "{{ route("admin.{$slug}.data") }}";
         const lang   = @json(__('app.datatables'));
-        const fixed  = @json([
+        const fixed  = {!! json_encode([
             'paging' => true,
             'pagingType' => 'full_numbers',
             'lengthMenu' => [[10, 25, 50, 100], [10, 25, 50, 100]],
@@ -75,9 +75,9 @@
             'responsive' => true,
             'autoWidth' => false,
             'stateSave' => false,
-        ]);
+        ], JSON_UNESCAPED_UNICODE) !!};
 
-        const columns = @json(array_map(fn ($col) => ['data' => $col, 'name' => $col], array_keys($columns)));
+        const columns = {!! json_encode(array_map(fn ($col) => ['data' => $col, 'name' => $col], array_keys($columns)), JSON_UNESCAPED_UNICODE) !!};
         columns.push({ data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end' });
 
         const dt = $('#' + slug + '-table').DataTable(Object.assign({}, fixed, {
