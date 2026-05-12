@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Department extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'departments';
 
@@ -32,6 +32,6 @@ class Department extends Model
 
     public function staff(): HasMany
     {
-        return $this->hasMany(\App\Models\Staff::class, 'department_id');
+        return $this->hasMany(Staff::class, 'department_id');
     }
 }

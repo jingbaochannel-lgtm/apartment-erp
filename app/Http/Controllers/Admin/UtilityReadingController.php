@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\RentalContract;
+use App\Models\Room;
+use App\Models\UtilityMeter;
 use App\Models\UtilityReading;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Utility Readings.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class UtilityReadingController extends BaseCrudController
 {
     protected string $modelClass = UtilityReading::class;
+
     protected string $routeSlug = 'utility-readings';
+
     protected ?string $permissionModule = 'utility_readings';
+
     protected string $singular = 'Utility Reading';
+
     protected string $plural = 'Utility Readings';
+
     protected array $with = ['room', 'meter'];
+
     protected array $searchable = ['reading_no', 'billing_month'];
+
     protected array $columns = [
         'id' => '#',
         'reading_no' => 'No.',
@@ -36,18 +46,18 @@ class UtilityReadingController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('reading_no', 'No.', true),
-            \App\Support\CrudField::select('utility_meter_id', 'Meter', static::options(\App\Models\UtilityMeter::class), true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), false),
-            \App\Support\CrudField::select('contract_id', 'Contract', static::options(\App\Models\RentalContract::class), false),
-            \App\Support\CrudField::date('reading_date', 'Reading Date', true),
-            \App\Support\CrudField::text('billing_month', 'Billing Month (YYYY-MM)', false),
-            \App\Support\CrudField::decimal('old_reading', 'Old Reading', false),
-            \App\Support\CrudField::decimal('new_reading', 'New Reading', false),
-            \App\Support\CrudField::decimal('usage_unit', 'Usage Unit', false),
-            \App\Support\CrudField::decimal('price_per_unit', 'Price/Unit', false),
-            \App\Support\CrudField::decimal('total_fee', 'Total Fee', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('reading_no', 'No.', true),
+            CrudField::select('utility_meter_id', 'Meter', static::options(UtilityMeter::class), true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), false),
+            CrudField::select('contract_id', 'Contract', static::options(RentalContract::class), false),
+            CrudField::date('reading_date', 'Reading Date', true),
+            CrudField::text('billing_month', 'Billing Month (YYYY-MM)', false),
+            CrudField::decimal('old_reading', 'Old Reading', false),
+            CrudField::decimal('new_reading', 'New Reading', false),
+            CrudField::decimal('usage_unit', 'Usage Unit', false),
+            CrudField::decimal('price_per_unit', 'Price/Unit', false),
+            CrudField::decimal('total_fee', 'Total Fee', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

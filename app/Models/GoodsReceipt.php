@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GoodsReceipt extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'goods_receipts';
 
@@ -33,6 +33,6 @@ class GoodsReceipt extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(\App\Models\GoodsReceiptItem::class, 'goods_receipt_id');
+        return $this->hasMany(GoodsReceiptItem::class, 'goods_receipt_id');
     }
 }

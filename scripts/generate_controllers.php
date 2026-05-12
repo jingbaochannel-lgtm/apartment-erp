@@ -1,4 +1,5 @@
 <?php
+
 /**
  * One-shot generator that emits one CRUD controller per entry in
  * `scripts/controller_definitions.php`. Each generated controller is a
@@ -167,6 +168,7 @@ function renderFieldStatement(array $f): string
             return "\\App\\Support\\CrudField::time('$name', '".addslashes($label)."', $reqArg)";
         case 'textarea':
             $rows = $extra ?: 3;
+
             return "\\App\\Support\\CrudField::textarea('$name', '".addslashes($label)."', $reqArg, $rows)";
         case 'checkbox':
             return "\\App\\Support\\CrudField::checkbox('$name', '".addslashes($label)."')";
@@ -176,6 +178,7 @@ function renderFieldStatement(array $f): string
                 throw new RuntimeException("Select field $name must include options string");
             }
             $optionsExpr = renderSelectOptions($opts);
+
             return "\\App\\Support\\CrudField::select('$name', '".addslashes($label)."', $optionsExpr, $reqArg)";
         default:
             throw new RuntimeException("Unknown field type: $type");
@@ -186,6 +189,7 @@ function renderFieldStatement(array $f): string
 function renderRule(string $type, bool $required): string
 {
     $req = $required ? "'required'" : "'nullable'";
+
     return match ($type) {
         'email' => "[$req, 'email', 'max:191']",
         'password' => "[$req, 'string', 'min:6']",

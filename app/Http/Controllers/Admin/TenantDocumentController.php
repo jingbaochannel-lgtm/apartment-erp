@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tenant;
 use App\Models\TenantDocument;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Tenant Documents.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class TenantDocumentController extends BaseCrudController
 {
     protected string $modelClass = TenantDocument::class;
+
     protected string $routeSlug = 'tenant-documents';
+
     protected ?string $permissionModule = 'tenant_documents';
+
     protected string $singular = 'Tenant Document';
+
     protected string $plural = 'Tenant Documents';
+
     protected array $with = ['tenant'];
+
     protected array $searchable = ['document_code', 'title'];
+
     protected array $columns = [
         'id' => '#',
         'tenant.full_name' => 'Tenant',
@@ -33,14 +41,14 @@ class TenantDocumentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::text('document_code', 'Code', false),
-            \App\Support\CrudField::select('document_type', 'Type', ['id_card' => 'ID Card', 'passport' => 'Passport', 'driver_license' => 'Driver License', 'other' => 'Other'], false),
-            \App\Support\CrudField::text('title', 'Title', true),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::date('issue_date', 'Issue Date', false),
-            \App\Support\CrudField::date('expiry_date', 'Expiry Date', false),
-            \App\Support\CrudField::checkbox('is_verified', 'Verified'),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::text('document_code', 'Code', false),
+            CrudField::select('document_type', 'Type', ['id_card' => 'ID Card', 'passport' => 'Passport', 'driver_license' => 'Driver License', 'other' => 'Other'], false),
+            CrudField::text('title', 'Title', true),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::date('issue_date', 'Issue Date', false),
+            CrudField::date('expiry_date', 'Expiry Date', false),
+            CrudField::checkbox('is_verified', 'Verified'),
         ];
     }
 

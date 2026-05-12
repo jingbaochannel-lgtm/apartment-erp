@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaymentGateway extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'payment_gateways';
 

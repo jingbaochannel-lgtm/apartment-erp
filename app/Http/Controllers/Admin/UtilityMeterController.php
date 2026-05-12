@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Room;
 use App\Models\UtilityMeter;
+use App\Models\UtilityType;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Utility Meters.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class UtilityMeterController extends BaseCrudController
 {
     protected string $modelClass = UtilityMeter::class;
+
     protected string $routeSlug = 'utility-meters';
+
     protected ?string $permissionModule = 'utility_meters';
+
     protected string $singular = 'Utility Meter';
+
     protected string $plural = 'Utility Meters';
+
     protected array $with = ['room', 'utilityType'];
+
     protected array $searchable = ['meter_no'];
+
     protected array $columns = [
         'id' => '#',
         'meter_no' => 'Meter No.',
@@ -33,12 +42,12 @@ class UtilityMeterController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), true),
-            \App\Support\CrudField::select('utility_type_id', 'Utility Type', static::options(\App\Models\UtilityType::class), true),
-            \App\Support\CrudField::text('meter_no', 'Meter No.', true),
-            \App\Support\CrudField::decimal('initial_reading', 'Initial Reading', false),
-            \App\Support\CrudField::date('installed_date', 'Installed', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('room_id', 'Room', static::options(Room::class), true),
+            CrudField::select('utility_type_id', 'Utility Type', static::options(UtilityType::class), true),
+            CrudField::text('meter_no', 'Meter No.', true),
+            CrudField::decimal('initial_reading', 'Initial Reading', false),
+            CrudField::date('installed_date', 'Installed', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

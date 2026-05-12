@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Building;
+use App\Models\Floor;
 use App\Models\Room;
+use App\Models\RoomType;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Rooms.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class RoomController extends BaseCrudController
 {
     protected string $modelClass = Room::class;
+
     protected string $routeSlug = 'rooms';
+
     protected ?string $permissionModule = 'rooms';
+
     protected string $singular = 'Room';
+
     protected string $plural = 'Rooms';
+
     protected array $with = ['building', 'floor', 'roomType'];
+
     protected array $searchable = ['room_code', 'room_number'];
+
     protected array $columns = [
         'id' => '#',
         'room_code' => 'Code',
@@ -35,17 +45,17 @@ class RoomController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('building_id', 'Building', static::options(\App\Models\Building::class), true),
-            \App\Support\CrudField::select('floor_id', 'Floor', static::options(\App\Models\Floor::class), true),
-            \App\Support\CrudField::select('room_type_id', 'Room Type', static::options(\App\Models\RoomType::class), true),
-            \App\Support\CrudField::text('room_code', 'Code', true),
-            \App\Support\CrudField::text('room_number', 'Number', true),
-            \App\Support\CrudField::decimal('size_sqm', 'Size (m²)', false),
-            \App\Support\CrudField::number('capacity', 'Capacity', false),
-            \App\Support\CrudField::decimal('monthly_rent', 'Monthly Rent', false),
-            \App\Support\CrudField::decimal('deposit_amount', 'Deposit Amount', false),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['available' => 'Available', 'occupied' => 'Occupied', 'reserved' => 'Reserved', 'maintenance' => 'Maintenance', 'inactive' => 'Inactive'], false),
+            CrudField::select('building_id', 'Building', static::options(Building::class), true),
+            CrudField::select('floor_id', 'Floor', static::options(Floor::class), true),
+            CrudField::select('room_type_id', 'Room Type', static::options(RoomType::class), true),
+            CrudField::text('room_code', 'Code', true),
+            CrudField::text('room_number', 'Number', true),
+            CrudField::decimal('size_sqm', 'Size (m²)', false),
+            CrudField::number('capacity', 'Capacity', false),
+            CrudField::decimal('monthly_rent', 'Monthly Rent', false),
+            CrudField::decimal('deposit_amount', 'Deposit Amount', false),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::select('status', 'Status', ['available' => 'Available', 'occupied' => 'Occupied', 'reserved' => 'Reserved', 'maintenance' => 'Maintenance', 'inactive' => 'Inactive'], false),
         ];
     }
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Invoice;
+use App\Models\RentalContract;
+use App\Models\Room;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Invoices.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class InvoiceController extends BaseCrudController
 {
     protected string $modelClass = Invoice::class;
+
     protected string $routeSlug = 'invoices';
+
     protected ?string $permissionModule = 'invoices';
+
     protected string $singular = 'Invoice';
+
     protected string $plural = 'Invoices';
+
     protected array $with = ['tenant', 'room'];
+
     protected array $searchable = ['invoice_no', 'billing_month'];
+
     protected array $columns = [
         'id' => '#',
         'invoice_no' => 'No.',
@@ -36,25 +46,25 @@ class InvoiceController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('invoice_no', 'No.', true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), false),
-            \App\Support\CrudField::select('contract_id', 'Contract', static::options(\App\Models\RentalContract::class), false),
-            \App\Support\CrudField::text('billing_month', 'Month (YYYY-MM)', false),
-            \App\Support\CrudField::date('invoice_date', 'Invoice Date', true),
-            \App\Support\CrudField::date('due_date', 'Due Date', true),
-            \App\Support\CrudField::decimal('room_fee', 'Room Fee', false),
-            \App\Support\CrudField::decimal('water_fee', 'Water Fee', false),
-            \App\Support\CrudField::decimal('electricity_fee', 'Electricity Fee', false),
-            \App\Support\CrudField::decimal('service_fee', 'Service Fee', false),
-            \App\Support\CrudField::decimal('old_balance', 'Old Balance', false),
-            \App\Support\CrudField::decimal('discount', 'Discount', false),
-            \App\Support\CrudField::decimal('penalty', 'Penalty', false),
-            \App\Support\CrudField::decimal('subtotal', 'Subtotal', false),
-            \App\Support\CrudField::decimal('grand_total', 'Grand Total', false),
-            \App\Support\CrudField::decimal('paid_amount', 'Paid', false),
-            \App\Support\CrudField::decimal('balance_due', 'Balance Due', false),
-            \App\Support\CrudField::select('status', 'Status', ['draft' => 'Draft', 'issued' => 'Issued', 'paid' => 'Paid', 'partial' => 'Partial', 'overdue' => 'Overdue', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('invoice_no', 'No.', true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), false),
+            CrudField::select('contract_id', 'Contract', static::options(RentalContract::class), false),
+            CrudField::text('billing_month', 'Month (YYYY-MM)', false),
+            CrudField::date('invoice_date', 'Invoice Date', true),
+            CrudField::date('due_date', 'Due Date', true),
+            CrudField::decimal('room_fee', 'Room Fee', false),
+            CrudField::decimal('water_fee', 'Water Fee', false),
+            CrudField::decimal('electricity_fee', 'Electricity Fee', false),
+            CrudField::decimal('service_fee', 'Service Fee', false),
+            CrudField::decimal('old_balance', 'Old Balance', false),
+            CrudField::decimal('discount', 'Discount', false),
+            CrudField::decimal('penalty', 'Penalty', false),
+            CrudField::decimal('subtotal', 'Subtotal', false),
+            CrudField::decimal('grand_total', 'Grand Total', false),
+            CrudField::decimal('paid_amount', 'Paid', false),
+            CrudField::decimal('balance_due', 'Balance Due', false),
+            CrudField::select('status', 'Status', ['draft' => 'Draft', 'issued' => 'Issued', 'paid' => 'Paid', 'partial' => 'Partial', 'overdue' => 'Overdue', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

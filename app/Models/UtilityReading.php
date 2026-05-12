@@ -3,16 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\RentalContract;
-use App\Models\Room;
-use App\Models\UtilityMeter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UtilityReading extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'utility_readings';
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Payments.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class PaymentController extends BaseCrudController
 {
     protected string $modelClass = Payment::class;
+
     protected string $routeSlug = 'payments';
+
     protected ?string $permissionModule = 'payments';
+
     protected string $singular = 'Payment';
+
     protected string $plural = 'Payments';
+
     protected array $with = ['tenant', 'invoice'];
+
     protected array $searchable = ['payment_no', 'transaction_reference'];
+
     protected array $columns = [
         'id' => '#',
         'payment_no' => 'No.',
@@ -35,16 +44,16 @@ class PaymentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('payment_no', 'No.', true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::select('invoice_id', 'Invoice', static::options(\App\Models\Invoice::class), false),
-            \App\Support\CrudField::date('payment_date', 'Date', true),
-            \App\Support\CrudField::decimal('amount_paid', 'Amount', true),
-            \App\Support\CrudField::select('payment_method', 'Method', ['cash' => 'Cash', 'bank_transfer' => 'Bank Transfer', 'credit_card' => 'Credit Card', 'aba_pay' => 'ABA Pay', 'wing' => 'Wing', 'other' => 'Other'], false),
-            \App\Support\CrudField::text('transaction_reference', 'Reference', false),
-            \App\Support\CrudField::text('slip_path', 'Slip Path', false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['pending' => 'Pending', 'completed' => 'Completed', 'failed' => 'Failed', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('payment_no', 'No.', true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::select('invoice_id', 'Invoice', static::options(Invoice::class), false),
+            CrudField::date('payment_date', 'Date', true),
+            CrudField::decimal('amount_paid', 'Amount', true),
+            CrudField::select('payment_method', 'Method', ['cash' => 'Cash', 'bank_transfer' => 'Bank Transfer', 'credit_card' => 'Credit Card', 'aba_pay' => 'ABA Pay', 'wing' => 'Wing', 'other' => 'Other'], false),
+            CrudField::text('transaction_reference', 'Reference', false),
+            CrudField::text('slip_path', 'Slip Path', false),
+            CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::select('status', 'Status', ['pending' => 'Pending', 'completed' => 'Completed', 'failed' => 'Failed', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

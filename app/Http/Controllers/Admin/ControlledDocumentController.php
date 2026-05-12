@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ControlledDocument;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Controlled Documents.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class ControlledDocumentController extends BaseCrudController
 {
     protected string $modelClass = ControlledDocument::class;
+
     protected string $routeSlug = 'controlled-documents';
+
     protected ?string $permissionModule = 'controlled_documents';
+
     protected string $singular = 'Controlled Document';
+
     protected string $plural = 'Controlled Documents';
+
     protected array $with = [];
+
     protected array $searchable = ['document_code', 'title'];
+
     protected array $columns = [
         'id' => '#',
         'document_code' => 'Code',
@@ -33,17 +40,17 @@ class ControlledDocumentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('document_code', 'Code', true),
-            \App\Support\CrudField::select('document_type', 'Type', ['policy' => 'Policy', 'procedure' => 'Procedure', 'form' => 'Form', 'manual' => 'Manual', 'other' => 'Other'], false),
-            \App\Support\CrudField::text('title', 'Title', true),
-            \App\Support\CrudField::text('version_number', 'Version', false),
-            \App\Support\CrudField::date('effective_date', 'Effective Date', false),
-            \App\Support\CrudField::text('prepared_by', 'Prepared By', false),
-            \App\Support\CrudField::text('reviewed_by', 'Reviewed By', false),
-            \App\Support\CrudField::text('approved_by', 'Approved By', false),
-            \App\Support\CrudField::datetime('approved_at', 'Approved At', false),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['draft' => 'Draft', 'active' => 'Active', 'obsolete' => 'Obsolete'], false),
+            CrudField::text('document_code', 'Code', true),
+            CrudField::select('document_type', 'Type', ['policy' => 'Policy', 'procedure' => 'Procedure', 'form' => 'Form', 'manual' => 'Manual', 'other' => 'Other'], false),
+            CrudField::text('title', 'Title', true),
+            CrudField::text('version_number', 'Version', false),
+            CrudField::date('effective_date', 'Effective Date', false),
+            CrudField::text('prepared_by', 'Prepared By', false),
+            CrudField::text('reviewed_by', 'Reviewed By', false),
+            CrudField::text('approved_by', 'Approved By', false),
+            CrudField::datetime('approved_at', 'Approved At', false),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::select('status', 'Status', ['draft' => 'Draft', 'active' => 'Active', 'obsolete' => 'Obsolete'], false),
         ];
     }
 

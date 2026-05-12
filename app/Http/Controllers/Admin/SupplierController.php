@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Supplier;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Suppliers.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class SupplierController extends BaseCrudController
 {
     protected string $modelClass = Supplier::class;
+
     protected string $routeSlug = 'suppliers';
+
     protected ?string $permissionModule = 'suppliers';
+
     protected string $singular = 'Supplier';
+
     protected string $plural = 'Suppliers';
+
     protected array $with = [];
+
     protected array $searchable = ['supplier_code', 'supplier_name', 'phone', 'email'];
+
     protected array $columns = [
         'id' => '#',
         'supplier_code' => 'Code',
@@ -33,15 +40,15 @@ class SupplierController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('supplier_code', 'Code', true),
-            \App\Support\CrudField::text('supplier_name', 'Name', true),
-            \App\Support\CrudField::text('phone', 'Phone', false),
-            \App\Support\CrudField::email('email', 'Email', false),
-            \App\Support\CrudField::textarea('address', 'Address', false, 3),
-            \App\Support\CrudField::text('contact_person', 'Contact Person', false),
-            \App\Support\CrudField::text('payment_term', 'Payment Term', false),
-            \App\Support\CrudField::decimal('rating', 'Rating', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('supplier_code', 'Code', true),
+            CrudField::text('supplier_name', 'Name', true),
+            CrudField::text('phone', 'Phone', false),
+            CrudField::email('email', 'Email', false),
+            CrudField::textarea('address', 'Address', false, 3),
+            CrudField::text('contact_person', 'Contact Person', false),
+            CrudField::text('payment_term', 'Payment Term', false),
+            CrudField::decimal('rating', 'Rating', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

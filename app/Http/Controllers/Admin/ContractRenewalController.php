@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ContractRenewal;
+use App\Models\RentalContract;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Contract Renewals.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class ContractRenewalController extends BaseCrudController
 {
     protected string $modelClass = ContractRenewal::class;
+
     protected string $routeSlug = 'contract-renewals';
+
     protected ?string $permissionModule = 'contract_renewals';
+
     protected string $singular = 'Contract Renewal';
+
     protected string $plural = 'Contract Renewals';
+
     protected array $with = ['contract'];
+
     protected array $searchable = ['renewal_no'];
+
     protected array $columns = [
         'id' => '#',
         'renewal_no' => 'No.',
@@ -34,17 +42,17 @@ class ContractRenewalController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('renewal_no', 'No.', true),
-            \App\Support\CrudField::select('contract_id', 'Contract', static::options(\App\Models\RentalContract::class), true),
-            \App\Support\CrudField::date('old_end_date', 'Old End Date', false),
-            \App\Support\CrudField::date('new_start_date', 'New Start Date', false),
-            \App\Support\CrudField::date('new_end_date', 'New End Date', false),
-            \App\Support\CrudField::decimal('old_monthly_rent', 'Old Rent', false),
-            \App\Support\CrudField::decimal('new_monthly_rent', 'New Rent', false),
-            \App\Support\CrudField::decimal('old_deposit_amount', 'Old Deposit', false),
-            \App\Support\CrudField::decimal('new_deposit_amount', 'New Deposit', false),
-            \App\Support\CrudField::text('renewal_document_path', 'Document Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('renewal_no', 'No.', true),
+            CrudField::select('contract_id', 'Contract', static::options(RentalContract::class), true),
+            CrudField::date('old_end_date', 'Old End Date', false),
+            CrudField::date('new_start_date', 'New Start Date', false),
+            CrudField::date('new_end_date', 'New End Date', false),
+            CrudField::decimal('old_monthly_rent', 'Old Rent', false),
+            CrudField::decimal('new_monthly_rent', 'New Rent', false),
+            CrudField::decimal('old_deposit_amount', 'Old Deposit', false),
+            CrudField::decimal('new_deposit_amount', 'New Deposit', false),
+            CrudField::text('renewal_document_path', 'Document Path', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

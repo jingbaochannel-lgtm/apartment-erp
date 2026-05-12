@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'leads';
 
@@ -37,6 +37,6 @@ class Lead extends Model
 
     public function followups(): HasMany
     {
-        return $this->hasMany(\App\Models\LeadFollowup::class, 'lead_id');
+        return $this->hasMany(LeadFollowup::class, 'lead_id');
     }
 }

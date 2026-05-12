@@ -48,6 +48,7 @@ foreach ($tables as $table => $def) {
     $path = $base.'/'.$class.'.php';
     if ($dryRun) {
         echo "WOULD WRITE: $path\n";
+
         continue;
     }
     file_put_contents($path, $code);

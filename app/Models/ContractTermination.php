@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\RentalContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContractTermination extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'contract_terminations';
 

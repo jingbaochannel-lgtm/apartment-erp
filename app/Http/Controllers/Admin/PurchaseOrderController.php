@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\PurchaseOrder;
+use App\Models\Supplier;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Purchase Orders.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class PurchaseOrderController extends BaseCrudController
 {
     protected string $modelClass = PurchaseOrder::class;
+
     protected string $routeSlug = 'purchase-orders';
+
     protected ?string $permissionModule = 'purchase_orders';
+
     protected string $singular = 'Purchase Order';
+
     protected string $plural = 'Purchase Orders';
+
     protected array $with = ['supplier'];
+
     protected array $searchable = ['po_no'];
+
     protected array $columns = [
         'id' => '#',
         'po_no' => 'No.',
@@ -33,12 +41,12 @@ class PurchaseOrderController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('po_no', 'No.', true),
-            \App\Support\CrudField::select('supplier_id', 'Supplier', static::options(\App\Models\Supplier::class), true),
-            \App\Support\CrudField::date('po_date', 'Order Date', false),
-            \App\Support\CrudField::date('expected_delivery_date', 'Expected Delivery', false),
-            \App\Support\CrudField::decimal('total_amount', 'Total Amount', false),
-            \App\Support\CrudField::select('status', 'Status', ['draft' => 'Draft', 'pending' => 'Pending', 'approved' => 'Approved', 'received' => 'Received', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('po_no', 'No.', true),
+            CrudField::select('supplier_id', 'Supplier', static::options(Supplier::class), true),
+            CrudField::date('po_date', 'Order Date', false),
+            CrudField::date('expected_delivery_date', 'Expected Delivery', false),
+            CrudField::decimal('total_amount', 'Total Amount', false),
+            CrudField::select('status', 'Status', ['draft' => 'Draft', 'pending' => 'Pending', 'approved' => 'Approved', 'received' => 'Received', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

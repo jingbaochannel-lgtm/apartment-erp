@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SystemRole extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'system_roles';
 
@@ -32,11 +32,11 @@ class SystemRole extends Model
 
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemPermission::class, 'role_permission', 'role_id', 'permission_id');
+        return $this->belongsToMany(SystemPermission::class, 'role_permission', 'role_id', 'permission_id');
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemUser::class, 'user_role', 'role_id', 'user_id');
+        return $this->belongsToMany(SystemUser::class, 'user_role', 'role_id', 'user_id');
     }
 }

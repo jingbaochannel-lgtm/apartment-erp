@@ -19,11 +19,11 @@ class SystemPermission extends Model
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemRole::class, 'role_permission', 'permission_id', 'role_id');
+        return $this->belongsToMany(SystemRole::class, 'role_permission', 'permission_id', 'role_id');
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemUser::class, 'user_permission', 'permission_id', 'user_id');
+        return $this->belongsToMany(SystemUser::class, 'user_permission', 'permission_id', 'user_id');
     }
 }

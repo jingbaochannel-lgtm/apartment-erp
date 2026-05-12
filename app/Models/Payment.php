@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\Invoice;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'payments';
 
@@ -51,11 +49,11 @@ class Payment extends Model
 
     public function allocations(): HasMany
     {
-        return $this->hasMany(\App\Models\PaymentAllocation::class, 'payment_id');
+        return $this->hasMany(PaymentAllocation::class, 'payment_id');
     }
 
     public function receipts(): HasMany
     {
-        return $this->hasMany(\App\Models\Receipt::class, 'payment_id');
+        return $this->hasMany(Receipt::class, 'payment_id');
     }
 }

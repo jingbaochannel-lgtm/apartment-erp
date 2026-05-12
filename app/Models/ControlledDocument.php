@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ControlledDocument extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'controlled_documents';
 
@@ -39,6 +39,6 @@ class ControlledDocument extends Model
 
     public function revisions(): HasMany
     {
-        return $this->hasMany(\App\Models\ControlledDocumentRevision::class, 'controlled_document_id');
+        return $this->hasMany(ControlledDocumentRevision::class, 'controlled_document_id');
     }
 }

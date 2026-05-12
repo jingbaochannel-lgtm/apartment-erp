@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Department;
 use App\Models\Staff;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Staff.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class StaffController extends BaseCrudController
 {
     protected string $modelClass = Staff::class;
+
     protected string $routeSlug = 'staff';
+
     protected ?string $permissionModule = 'staff';
+
     protected string $singular = 'Staff';
+
     protected string $plural = 'Staff';
+
     protected array $with = ['department'];
+
     protected array $searchable = ['staff_code', 'full_name', 'phone', 'email'];
+
     protected array $columns = [
         'id' => '#',
         'staff_code' => 'Code',
@@ -34,16 +42,16 @@ class StaffController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('department_id', 'Department', static::options(\App\Models\Department::class), true),
-            \App\Support\CrudField::text('staff_code', 'Code', true),
-            \App\Support\CrudField::text('full_name', 'Full Name', true),
-            \App\Support\CrudField::text('position', 'Position', false),
-            \App\Support\CrudField::text('phone', 'Phone', false),
-            \App\Support\CrudField::email('email', 'Email', false),
-            \App\Support\CrudField::textarea('address', 'Address', false, 3),
-            \App\Support\CrudField::date('hire_date', 'Hire Date', false),
-            \App\Support\CrudField::decimal('basic_salary', 'Basic Salary', false),
-            \App\Support\CrudField::select('employment_status', 'Status', ['active' => 'Active', 'on_leave' => 'On Leave', 'terminated' => 'Terminated', 'resigned' => 'Resigned'], false),
+            CrudField::select('department_id', 'Department', static::options(Department::class), true),
+            CrudField::text('staff_code', 'Code', true),
+            CrudField::text('full_name', 'Full Name', true),
+            CrudField::text('position', 'Position', false),
+            CrudField::text('phone', 'Phone', false),
+            CrudField::email('email', 'Email', false),
+            CrudField::textarea('address', 'Address', false, 3),
+            CrudField::date('hire_date', 'Hire Date', false),
+            CrudField::decimal('basic_salary', 'Basic Salary', false),
+            CrudField::select('employment_status', 'Status', ['active' => 'Active', 'on_leave' => 'On Leave', 'terminated' => 'Terminated', 'resigned' => 'Resigned'], false),
         ];
     }
 

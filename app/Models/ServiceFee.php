@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceFee extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'service_fees';
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Asset;
+use App\Models\InventoryItem;
+use App\Models\Room;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Assets.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class AssetController extends BaseCrudController
 {
     protected string $modelClass = Asset::class;
+
     protected string $routeSlug = 'assets';
+
     protected ?string $permissionModule = 'assets';
+
     protected string $singular = 'Asset';
+
     protected string $plural = 'Assets';
+
     protected array $with = [];
+
     protected array $searchable = ['asset_code', 'asset_name'];
+
     protected array $columns = [
         'id' => '#',
         'asset_code' => 'Code',
@@ -34,16 +43,16 @@ class AssetController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('asset_code', 'Code', true),
-            \App\Support\CrudField::text('asset_name', 'Name', true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), false),
-            \App\Support\CrudField::select('inventory_item_id', 'Item', static::options(\App\Models\InventoryItem::class), false),
-            \App\Support\CrudField::date('purchase_date', 'Purchase Date', false),
-            \App\Support\CrudField::decimal('purchase_price', 'Purchase Price', false),
-            \App\Support\CrudField::select('condition', 'Condition', ['new' => 'New', 'good' => 'Good', 'fair' => 'Fair', 'damaged' => 'Damaged'], false),
-            \App\Support\CrudField::date('warranty_expiry_date', 'Warranty Expiry', false),
-            \App\Support\CrudField::decimal('depreciation_rate', 'Depreciation Rate', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('asset_code', 'Code', true),
+            CrudField::text('asset_name', 'Name', true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), false),
+            CrudField::select('inventory_item_id', 'Item', static::options(InventoryItem::class), false),
+            CrudField::date('purchase_date', 'Purchase Date', false),
+            CrudField::decimal('purchase_price', 'Purchase Price', false),
+            CrudField::select('condition', 'Condition', ['new' => 'New', 'good' => 'Good', 'fair' => 'Fair', 'damaged' => 'Damaged'], false),
+            CrudField::date('warranty_expiry_date', 'Warranty Expiry', false),
+            CrudField::decimal('depreciation_rate', 'Depreciation Rate', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

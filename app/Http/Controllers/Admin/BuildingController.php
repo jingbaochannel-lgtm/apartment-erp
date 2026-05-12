@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Building;
+use App\Models\Staff;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Buildings.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class BuildingController extends BaseCrudController
 {
     protected string $modelClass = Building::class;
+
     protected string $routeSlug = 'buildings';
+
     protected ?string $permissionModule = 'buildings';
+
     protected string $singular = 'Building';
+
     protected string $plural = 'Buildings';
+
     protected array $with = ['manager'];
+
     protected array $searchable = ['building_code', 'name', 'location'];
+
     protected array $columns = [
         'id' => '#',
         'building_code' => 'Code',
@@ -34,13 +42,13 @@ class BuildingController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('manager_staff_id', 'Manager', static::options(\App\Models\Staff::class), false),
-            \App\Support\CrudField::text('building_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::textarea('location', 'Location', false, 3),
-            \App\Support\CrudField::number('total_floors', 'Total Floors', false),
-            \App\Support\CrudField::number('total_rooms', 'Total Rooms', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('manager_staff_id', 'Manager', static::options(Staff::class), false),
+            CrudField::text('building_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::textarea('location', 'Location', false, 3),
+            CrudField::number('total_floors', 'Total Floors', false),
+            CrudField::number('total_rooms', 'Total Rooms', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

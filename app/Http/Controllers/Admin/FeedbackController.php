@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Feedback;
+use App\Models\Room;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Feedback.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class FeedbackController extends BaseCrudController
 {
     protected string $modelClass = Feedback::class;
+
     protected string $routeSlug = 'feedback';
+
     protected ?string $permissionModule = 'feedback';
+
     protected string $singular = 'Feedback';
+
     protected string $plural = 'Feedback';
+
     protected array $with = ['tenant', 'room'];
+
     protected array $searchable = [];
+
     protected array $columns = [
         'id' => '#',
         'tenant_id' => 'Tenant',
@@ -34,16 +43,16 @@ class FeedbackController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), false),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), false),
-            \App\Support\CrudField::number('rating', 'Rating (1-5)', false),
-            \App\Support\CrudField::textarea('comment', 'Comment', false, 3),
-            \App\Support\CrudField::number('service_quality_score', 'Service Quality (1-5)', false),
-            \App\Support\CrudField::number('cleanliness_score', 'Cleanliness (1-5)', false),
-            \App\Support\CrudField::number('security_score', 'Security (1-5)', false),
-            \App\Support\CrudField::number('overall_satisfaction_score', 'Overall (1-5)', false),
-            \App\Support\CrudField::date('feedback_date', 'Date', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), false),
+            CrudField::select('room_id', 'Room', static::options(Room::class), false),
+            CrudField::number('rating', 'Rating (1-5)', false),
+            CrudField::textarea('comment', 'Comment', false, 3),
+            CrudField::number('service_quality_score', 'Service Quality (1-5)', false),
+            CrudField::number('cleanliness_score', 'Cleanliness (1-5)', false),
+            CrudField::number('security_score', 'Security (1-5)', false),
+            CrudField::number('overall_satisfaction_score', 'Overall (1-5)', false),
+            CrudField::date('feedback_date', 'Date', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

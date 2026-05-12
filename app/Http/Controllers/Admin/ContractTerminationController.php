@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ContractTermination;
+use App\Models\RentalContract;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Contract Terminations.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class ContractTerminationController extends BaseCrudController
 {
     protected string $modelClass = ContractTermination::class;
+
     protected string $routeSlug = 'contract-terminations';
+
     protected ?string $permissionModule = 'contract_terminations';
+
     protected string $singular = 'Contract Termination';
+
     protected string $plural = 'Contract Terminations';
+
     protected array $with = ['contract'];
+
     protected array $searchable = ['termination_no', 'reason'];
+
     protected array $columns = [
         'id' => '#',
         'termination_no' => 'No.',
@@ -34,15 +42,15 @@ class ContractTerminationController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('termination_no', 'No.', true),
-            \App\Support\CrudField::select('contract_id', 'Contract', static::options(\App\Models\RentalContract::class), true),
-            \App\Support\CrudField::date('termination_date', 'Termination Date', false),
-            \App\Support\CrudField::textarea('reason', 'Reason', false, 3),
-            \App\Support\CrudField::decimal('outstanding_balance', 'Outstanding Balance', false),
-            \App\Support\CrudField::decimal('deposit_deduction', 'Deposit Deduction', false),
-            \App\Support\CrudField::decimal('deposit_refund', 'Deposit Refund', false),
-            \App\Support\CrudField::text('termination_letter_path', 'Letter Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('termination_no', 'No.', true),
+            CrudField::select('contract_id', 'Contract', static::options(RentalContract::class), true),
+            CrudField::date('termination_date', 'Termination Date', false),
+            CrudField::textarea('reason', 'Reason', false, 3),
+            CrudField::decimal('outstanding_balance', 'Outstanding Balance', false),
+            CrudField::decimal('deposit_deduction', 'Deposit Deduction', false),
+            CrudField::decimal('deposit_refund', 'Deposit Refund', false),
+            CrudField::text('termination_letter_path', 'Letter Path', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

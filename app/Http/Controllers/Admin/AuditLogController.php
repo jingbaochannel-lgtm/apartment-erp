@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\AuditLog;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Audit Logs.
@@ -15,12 +14,19 @@ use Illuminate\Http\Request;
 class AuditLogController extends BaseCrudController
 {
     protected string $modelClass = AuditLog::class;
+
     protected string $routeSlug = 'audit-logs';
+
     protected ?string $permissionModule = 'audit_logs';
+
     protected string $singular = 'Audit Log';
+
     protected string $plural = 'Audit Logs';
+
     protected array $with = [];
+
     protected array $searchable = ['module', 'action'];
+
     protected array $columns = [
         'id' => '#',
         'user_id' => 'User',

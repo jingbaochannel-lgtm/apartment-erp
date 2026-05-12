@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Building;
 use App\Models\Concerns\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Floor extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'floors';
 
@@ -40,6 +39,6 @@ class Floor extends Model
 
     public function rooms(): HasMany
     {
-        return $this->hasMany(\App\Models\Room::class, 'floor_id');
+        return $this->hasMany(Room::class, 'floor_id');
     }
 }

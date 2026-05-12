@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tenant extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'tenants';
 
@@ -42,26 +42,26 @@ class Tenant extends Model
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(\App\Models\TenantContact::class, 'tenant_id');
+        return $this->hasMany(TenantContact::class, 'tenant_id');
     }
 
     public function documents(): HasMany
     {
-        return $this->hasMany(\App\Models\TenantDocument::class, 'tenant_id');
+        return $this->hasMany(TenantDocument::class, 'tenant_id');
     }
 
     public function contracts(): HasMany
     {
-        return $this->hasMany(\App\Models\RentalContract::class, 'tenant_id');
+        return $this->hasMany(RentalContract::class, 'tenant_id');
     }
 
     public function invoices(): HasMany
     {
-        return $this->hasMany(\App\Models\Invoice::class, 'tenant_id');
+        return $this->hasMany(Invoice::class, 'tenant_id');
     }
 
     public function payments(): HasMany
     {
-        return $this->hasMany(\App\Models\Payment::class, 'tenant_id');
+        return $this->hasMany(Payment::class, 'tenant_id');
     }
 }

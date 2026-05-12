@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\PaymentGateway;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Payment Gateways.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class PaymentGatewayController extends BaseCrudController
 {
     protected string $modelClass = PaymentGateway::class;
+
     protected string $routeSlug = 'payment-gateways';
+
     protected ?string $permissionModule = 'payment_gateways';
+
     protected string $singular = 'Payment Gateway';
+
     protected string $plural = 'Payment Gateways';
+
     protected array $with = [];
+
     protected array $searchable = ['gateway_code', 'gateway_name'];
+
     protected array $columns = [
         'id' => '#',
         'gateway_code' => 'Code',
@@ -33,12 +40,12 @@ class PaymentGatewayController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('gateway_code', 'Code', true),
-            \App\Support\CrudField::text('gateway_name', 'Name', true),
-            \App\Support\CrudField::select('provider', 'Provider', ['aba' => 'ABA Pay', 'wing' => 'Wing', 'pipay' => 'Pipay', 'bakong' => 'Bakong', 'stripe' => 'Stripe', 'other' => 'Other'], false),
-            \App\Support\CrudField::textarea('configuration', 'Configuration (JSON)', false, 5),
-            \App\Support\CrudField::checkbox('sandbox_mode', 'Sandbox'),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('gateway_code', 'Code', true),
+            CrudField::text('gateway_name', 'Name', true),
+            CrudField::select('provider', 'Provider', ['aba' => 'ABA Pay', 'wing' => 'Wing', 'pipay' => 'Pipay', 'bakong' => 'Bakong', 'stripe' => 'Stripe', 'other' => 'Other'], false),
+            CrudField::textarea('configuration', 'Configuration (JSON)', false, 5),
+            CrudField::checkbox('sandbox_mode', 'Sandbox'),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

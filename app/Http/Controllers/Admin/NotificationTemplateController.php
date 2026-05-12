@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\NotificationTemplate;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Notification Templates.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class NotificationTemplateController extends BaseCrudController
 {
     protected string $modelClass = NotificationTemplate::class;
+
     protected string $routeSlug = 'notification-templates';
+
     protected ?string $permissionModule = 'notification_templates';
+
     protected string $singular = 'Notification Template';
+
     protected string $plural = 'Notification Templates';
+
     protected array $with = [];
+
     protected array $searchable = ['template_code', 'subject'];
+
     protected array $columns = [
         'id' => '#',
         'template_code' => 'Code',
@@ -33,13 +40,13 @@ class NotificationTemplateController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('template_code', 'Code', true),
-            \App\Support\CrudField::text('template_type', 'Type', false),
-            \App\Support\CrudField::select('channel', 'Channel', ['email' => 'Email', 'sms' => 'SMS', 'in_app' => 'In-app', 'push' => 'Push'], false),
-            \App\Support\CrudField::text('subject', 'Subject', false),
-            \App\Support\CrudField::textarea('body', 'Body', false, 6),
-            \App\Support\CrudField::textarea('variables', 'Variables (JSON)', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('template_code', 'Code', true),
+            CrudField::text('template_type', 'Type', false),
+            CrudField::select('channel', 'Channel', ['email' => 'Email', 'sms' => 'SMS', 'in_app' => 'In-app', 'push' => 'Push'], false),
+            CrudField::text('subject', 'Subject', false),
+            CrudField::textarea('body', 'Body', false, 6),
+            CrudField::textarea('variables', 'Variables (JSON)', false, 3),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

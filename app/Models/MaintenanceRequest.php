@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\Room;
-use App\Models\Staff;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MaintenanceRequest extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'maintenance_requests';
 
@@ -69,6 +66,6 @@ class MaintenanceRequest extends Model
 
     public function updates(): HasMany
     {
-        return $this->hasMany(\App\Models\MaintenanceUpdate::class, 'maintenance_request_id');
+        return $this->hasMany(MaintenanceUpdate::class, 'maintenance_request_id');
     }
 }

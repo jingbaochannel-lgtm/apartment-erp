@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\AppNotification;
+use App\Models\NotificationTemplate;
+use App\Models\SystemUser;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Notifications.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class NotificationController extends BaseCrudController
 {
     protected string $modelClass = AppNotification::class;
+
     protected string $routeSlug = 'notifications';
+
     protected ?string $permissionModule = 'notifications';
+
     protected string $singular = 'Notification';
+
     protected string $plural = 'Notifications';
+
     protected array $with = [];
+
     protected array $searchable = ['notification_no', 'recipient', 'subject'];
+
     protected array $columns = [
         'id' => '#',
         'notification_no' => 'No.',
@@ -33,18 +43,18 @@ class NotificationController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('notification_no', 'No.', true),
-            \App\Support\CrudField::select('template_id', 'Template', static::options(\App\Models\NotificationTemplate::class), false),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), false),
-            \App\Support\CrudField::select('user_id', 'User', static::options(\App\Models\SystemUser::class), false),
-            \App\Support\CrudField::select('channel', 'Channel', ['email' => 'Email', 'sms' => 'SMS', 'in_app' => 'In-app', 'push' => 'Push'], false),
-            \App\Support\CrudField::text('notification_type', 'Type', false),
-            \App\Support\CrudField::text('recipient', 'Recipient', false),
-            \App\Support\CrudField::text('subject', 'Subject', false),
-            \App\Support\CrudField::textarea('message', 'Message', false, 4),
-            \App\Support\CrudField::datetime('scheduled_at', 'Scheduled At', false),
-            \App\Support\CrudField::datetime('sent_at', 'Sent At', false),
-            \App\Support\CrudField::select('status', 'Status', ['scheduled' => 'Scheduled', 'sent' => 'Sent', 'failed' => 'Failed', 'read' => 'Read'], false),
+            CrudField::text('notification_no', 'No.', true),
+            CrudField::select('template_id', 'Template', static::options(NotificationTemplate::class), false),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), false),
+            CrudField::select('user_id', 'User', static::options(SystemUser::class), false),
+            CrudField::select('channel', 'Channel', ['email' => 'Email', 'sms' => 'SMS', 'in_app' => 'In-app', 'push' => 'Push'], false),
+            CrudField::text('notification_type', 'Type', false),
+            CrudField::text('recipient', 'Recipient', false),
+            CrudField::text('subject', 'Subject', false),
+            CrudField::textarea('message', 'Message', false, 4),
+            CrudField::datetime('scheduled_at', 'Scheduled At', false),
+            CrudField::datetime('sent_at', 'Sent At', false),
+            CrudField::select('status', 'Status', ['scheduled' => 'Scheduled', 'sent' => 'Sent', 'failed' => 'Failed', 'read' => 'Read'], false),
         ];
     }
 

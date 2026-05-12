@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\RoomType;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Room Types.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class RoomTypeController extends BaseCrudController
 {
     protected string $modelClass = RoomType::class;
+
     protected string $routeSlug = 'room-types';
+
     protected ?string $permissionModule = 'room_types';
+
     protected string $singular = 'Room Type';
+
     protected string $plural = 'Room Types';
+
     protected array $with = [];
+
     protected array $searchable = ['type_code', 'name'];
+
     protected array $columns = [
         'id' => '#',
         'type_code' => 'Code',
@@ -34,13 +41,13 @@ class RoomTypeController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('type_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::decimal('default_monthly_rent', 'Default Monthly Rent', false),
-            \App\Support\CrudField::decimal('default_deposit_amount', 'Default Deposit', false),
-            \App\Support\CrudField::number('default_capacity', 'Default Capacity', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('type_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::decimal('default_monthly_rent', 'Default Monthly Rent', false),
+            CrudField::decimal('default_deposit_amount', 'Default Deposit', false),
+            CrudField::number('default_capacity', 'Default Capacity', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

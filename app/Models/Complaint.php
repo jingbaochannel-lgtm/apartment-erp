@@ -3,16 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\Room;
-use App\Models\Staff;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Complaint extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'complaints';
 

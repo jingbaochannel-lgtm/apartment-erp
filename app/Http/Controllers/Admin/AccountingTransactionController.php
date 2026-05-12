@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AccountingCategory;
 use App\Models\AccountingTransaction;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Accounting Transactions.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class AccountingTransactionController extends BaseCrudController
 {
     protected string $modelClass = AccountingTransaction::class;
+
     protected string $routeSlug = 'accounting-transactions';
+
     protected ?string $permissionModule = 'accounting_transactions';
+
     protected string $singular = 'Accounting Transaction';
+
     protected string $plural = 'Accounting Transactions';
+
     protected array $with = ['category'];
+
     protected array $searchable = ['transaction_no'];
+
     protected array $columns = [
         'id' => '#',
         'transaction_no' => 'No.',
@@ -34,17 +42,17 @@ class AccountingTransactionController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('transaction_no', 'No.', true),
-            \App\Support\CrudField::select('accounting_category_id', 'Category', static::options(\App\Models\AccountingCategory::class), true),
-            \App\Support\CrudField::select('transaction_type', 'Type', ['income' => 'Income', 'expense' => 'Expense'], false),
-            \App\Support\CrudField::date('transaction_date', 'Date', false),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::decimal('amount', 'Amount', false),
-            \App\Support\CrudField::text('payment_method', 'Payment Method', false),
-            \App\Support\CrudField::text('reference_type', 'Reference Type', false),
-            \App\Support\CrudField::number('reference_id', 'Reference ID', false),
-            \App\Support\CrudField::text('attachment_path', 'Attachment', false),
-            \App\Support\CrudField::select('status', 'Status', ['pending' => 'Pending', 'approved' => 'Approved', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('transaction_no', 'No.', true),
+            CrudField::select('accounting_category_id', 'Category', static::options(AccountingCategory::class), true),
+            CrudField::select('transaction_type', 'Type', ['income' => 'Income', 'expense' => 'Expense'], false),
+            CrudField::date('transaction_date', 'Date', false),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::decimal('amount', 'Amount', false),
+            CrudField::text('payment_method', 'Payment Method', false),
+            CrudField::text('reference_type', 'Reference Type', false),
+            CrudField::number('reference_id', 'Reference ID', false),
+            CrudField::text('attachment_path', 'Attachment', false),
+            CrudField::select('status', 'Status', ['pending' => 'Pending', 'approved' => 'Approved', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Concerns\Auditable;
 use App\Models\Concerns\BelongsToApartment;
-use App\Models\Staff;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Building extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'buildings';
 
@@ -42,11 +41,11 @@ class Building extends Model
 
     public function floors(): HasMany
     {
-        return $this->hasMany(\App\Models\Floor::class, 'building_id');
+        return $this->hasMany(Floor::class, 'building_id');
     }
 
     public function rooms(): HasMany
     {
-        return $this->hasMany(\App\Models\Room::class, 'building_id');
+        return $this->hasMany(Room::class, 'building_id');
     }
 }

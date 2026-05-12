@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RoomType extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'room_types';
 
@@ -37,6 +37,6 @@ class RoomType extends Model
 
     public function facilities(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\Facility::class, 'room_type_facility', 'room_type_id', 'facility_id');
+        return $this->belongsToMany(Facility::class, 'room_type_facility', 'room_type_id', 'facility_id');
     }
 }

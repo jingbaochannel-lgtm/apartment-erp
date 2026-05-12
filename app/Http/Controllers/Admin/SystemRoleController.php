@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\SystemRole;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Roles.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class SystemRoleController extends BaseCrudController
 {
     protected string $modelClass = SystemRole::class;
+
     protected string $routeSlug = 'system-roles';
+
     protected ?string $permissionModule = 'system_roles';
+
     protected string $singular = 'Role';
+
     protected string $plural = 'Roles';
+
     protected array $with = [];
+
     protected array $searchable = ['role_code', 'name'];
+
     protected array $columns = [
         'id' => '#',
         'role_code' => 'Code',
@@ -32,11 +39,11 @@ class SystemRoleController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('role_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::checkbox('is_system', 'System Role'),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('role_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::checkbox('is_system', 'System Role'),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

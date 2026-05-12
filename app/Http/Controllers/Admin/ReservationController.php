@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Reservation;
+use App\Models\Room;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Reservations.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class ReservationController extends BaseCrudController
 {
     protected string $modelClass = Reservation::class;
+
     protected string $routeSlug = 'reservations';
+
     protected ?string $permissionModule = 'reservations';
+
     protected string $singular = 'Reservation';
+
     protected string $plural = 'Reservations';
+
     protected array $with = ['room', 'tenant'];
+
     protected array $searchable = ['reservation_no', 'customer_name', 'phone'];
+
     protected array $columns = [
         'id' => '#',
         'reservation_no' => 'No.',
@@ -35,17 +44,17 @@ class ReservationController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('reservation_no', 'No.', true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), false),
-            \App\Support\CrudField::text('customer_name', 'Customer', false),
-            \App\Support\CrudField::text('phone', 'Phone', false),
-            \App\Support\CrudField::email('email', 'Email', false),
-            \App\Support\CrudField::date('planned_move_in_date', 'Planned Move-in', false),
-            \App\Support\CrudField::decimal('deposit_amount', 'Deposit', false),
-            \App\Support\CrudField::date('deposit_paid_date', 'Deposit Paid', false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['pending' => 'Pending', 'confirmed' => 'Confirmed', 'cancelled' => 'Cancelled', 'converted' => 'Converted'], false),
+            CrudField::text('reservation_no', 'No.', true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), false),
+            CrudField::text('customer_name', 'Customer', false),
+            CrudField::text('phone', 'Phone', false),
+            CrudField::email('email', 'Email', false),
+            CrudField::date('planned_move_in_date', 'Planned Move-in', false),
+            CrudField::decimal('deposit_amount', 'Deposit', false),
+            CrudField::date('deposit_paid_date', 'Deposit Paid', false),
+            CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::select('status', 'Status', ['pending' => 'Pending', 'confirmed' => 'Confirmed', 'cancelled' => 'Cancelled', 'converted' => 'Converted'], false),
         ];
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\SystemSetting;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for System Settings.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class SystemSettingController extends BaseCrudController
 {
     protected string $modelClass = SystemSetting::class;
+
     protected string $routeSlug = 'system-settings';
+
     protected ?string $permissionModule = 'system_settings';
+
     protected string $singular = 'System Setting';
+
     protected string $plural = 'System Settings';
+
     protected array $with = [];
+
     protected array $searchable = ['setting_group', 'setting_key'];
+
     protected array $columns = [
         'id' => '#',
         'setting_group' => 'Group',
@@ -32,12 +39,12 @@ class SystemSettingController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('setting_group', 'Group', true),
-            \App\Support\CrudField::text('setting_key', 'Key', true),
-            \App\Support\CrudField::textarea('setting_value', 'Value', false, 3),
-            \App\Support\CrudField::select('value_type', 'Value Type', ['string' => 'String', 'integer' => 'Integer', 'boolean' => 'Boolean', 'json' => 'JSON'], false),
-            \App\Support\CrudField::checkbox('is_encrypted', 'Encrypted'),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
+            CrudField::text('setting_group', 'Group', true),
+            CrudField::text('setting_key', 'Key', true),
+            CrudField::textarea('setting_value', 'Value', false, 3),
+            CrudField::select('value_type', 'Value Type', ['string' => 'String', 'integer' => 'Integer', 'boolean' => 'Boolean', 'json' => 'JSON'], false),
+            CrudField::checkbox('is_encrypted', 'Encrypted'),
+            CrudField::textarea('description', 'Description', false, 3),
         ];
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\InventoryCategory;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Inventory Categories.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class InventoryCategoryController extends BaseCrudController
 {
     protected string $modelClass = InventoryCategory::class;
+
     protected string $routeSlug = 'inventory-categories';
+
     protected ?string $permissionModule = 'inventory_categories';
+
     protected string $singular = 'Inventory Category';
+
     protected string $plural = 'Inventory Categories';
+
     protected array $with = [];
+
     protected array $searchable = ['category_code', 'name'];
+
     protected array $columns = [
         'id' => '#',
         'category_code' => 'Code',
@@ -32,10 +39,10 @@ class InventoryCategoryController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('category_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('category_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

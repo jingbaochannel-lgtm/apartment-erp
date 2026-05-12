@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Facility;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Facilities.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class FacilityController extends BaseCrudController
 {
     protected string $modelClass = Facility::class;
+
     protected string $routeSlug = 'facilities';
+
     protected ?string $permissionModule = 'facilities';
+
     protected string $singular = 'Facility';
+
     protected string $plural = 'Facilities';
+
     protected array $with = [];
+
     protected array $searchable = ['facility_code', 'name', 'category'];
+
     protected array $columns = [
         'id' => '#',
         'facility_code' => 'Code',
@@ -32,11 +39,11 @@ class FacilityController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('facility_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::text('category', 'Category', false),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('facility_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::text('category', 'Category', false),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

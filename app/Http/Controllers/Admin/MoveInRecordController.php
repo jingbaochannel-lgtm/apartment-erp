@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\MoveInRecord;
+use App\Models\RentalContract;
+use App\Models\Room;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Move-In Records.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class MoveInRecordController extends BaseCrudController
 {
     protected string $modelClass = MoveInRecord::class;
+
     protected string $routeSlug = 'move-in-records';
+
     protected ?string $permissionModule = 'move_in_records';
+
     protected string $singular = 'Move-In Record';
+
     protected string $plural = 'Move-In Records';
+
     protected array $with = ['contract', 'tenant', 'room'];
+
     protected array $searchable = ['move_in_no'];
+
     protected array $columns = [
         'id' => '#',
         'move_in_no' => 'No.',
@@ -33,17 +43,17 @@ class MoveInRecordController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('move_in_no', 'No.', true),
-            \App\Support\CrudField::select('contract_id', 'Contract', static::options(\App\Models\RentalContract::class), false),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), true),
-            \App\Support\CrudField::date('move_in_date', 'Date', false),
-            \App\Support\CrudField::textarea('room_condition', 'Room Condition', false, 3),
-            \App\Support\CrudField::textarea('facility_condition', 'Facility Condition', false, 3),
-            \App\Support\CrudField::decimal('water_meter_reading', 'Water Meter', false),
-            \App\Support\CrudField::decimal('electric_meter_reading', 'Electric Meter', false),
-            \App\Support\CrudField::text('tenant_signature_path', 'Signature', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('move_in_no', 'No.', true),
+            CrudField::select('contract_id', 'Contract', static::options(RentalContract::class), false),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), true),
+            CrudField::date('move_in_date', 'Date', false),
+            CrudField::textarea('room_condition', 'Room Condition', false, 3),
+            CrudField::textarea('facility_condition', 'Facility Condition', false, 3),
+            CrudField::decimal('water_meter_reading', 'Water Meter', false),
+            CrudField::decimal('electric_meter_reading', 'Electric Meter', false),
+            CrudField::text('tenant_signature_path', 'Signature', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

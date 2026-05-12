@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\LegalDocument;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Legal Documents.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class LegalDocumentController extends BaseCrudController
 {
     protected string $modelClass = LegalDocument::class;
+
     protected string $routeSlug = 'legal-documents';
+
     protected ?string $permissionModule = 'legal_documents';
+
     protected string $singular = 'Legal Document';
+
     protected string $plural = 'Legal Documents';
+
     protected array $with = [];
+
     protected array $searchable = ['document_code', 'title', 'license_or_reference_no'];
+
     protected array $columns = [
         'id' => '#',
         'document_code' => 'Code',
@@ -33,14 +40,14 @@ class LegalDocumentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('document_code', 'Code', true),
-            \App\Support\CrudField::select('document_type', 'Type', ['business_license' => 'Business License', 'permit' => 'Permit', 'tax_certificate' => 'Tax Certificate', 'insurance' => 'Insurance', 'other' => 'Other'], true),
-            \App\Support\CrudField::text('title', 'Title', true),
-            \App\Support\CrudField::text('license_or_reference_no', 'Reference No', false),
-            \App\Support\CrudField::date('issue_date', 'Issue Date', false),
-            \App\Support\CrudField::date('expiry_date', 'Expiry Date', false),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('document_code', 'Code', true),
+            CrudField::select('document_type', 'Type', ['business_license' => 'Business License', 'permit' => 'Permit', 'tax_certificate' => 'Tax Certificate', 'insurance' => 'Insurance', 'other' => 'Other'], true),
+            CrudField::text('title', 'Title', true),
+            CrudField::text('license_or_reference_no', 'Reference No', false),
+            CrudField::date('issue_date', 'Issue Date', false),
+            CrudField::date('expiry_date', 'Expiry Date', false),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

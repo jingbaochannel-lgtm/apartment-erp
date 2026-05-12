@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Staff;
 use App\Models\StaffAttendance;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Staff Attendance.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class StaffAttendanceController extends BaseCrudController
 {
     protected string $modelClass = StaffAttendance::class;
+
     protected string $routeSlug = 'staff-attendances';
+
     protected ?string $permissionModule = 'staff_attendances';
+
     protected string $singular = 'Staff Attendance';
+
     protected string $plural = 'Staff Attendance';
+
     protected array $with = [];
+
     protected array $searchable = [];
+
     protected array $columns = [
         'id' => '#',
         'staff_id' => 'Staff',
@@ -33,14 +41,14 @@ class StaffAttendanceController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('staff_id', 'Staff', static::options(\App\Models\Staff::class), true),
-            \App\Support\CrudField::date('attendance_date', 'Date', false),
-            \App\Support\CrudField::text('time_in', 'Time In', false),
-            \App\Support\CrudField::text('time_out', 'Time Out', false),
-            \App\Support\CrudField::number('late_minutes', 'Late (min)', false),
-            \App\Support\CrudField::number('early_leave_minutes', 'Early Leave (min)', false),
-            \App\Support\CrudField::select('attendance_status', 'Status', ['present' => 'Present', 'absent' => 'Absent', 'leave' => 'Leave', 'late' => 'Late', 'half_day' => 'Half Day'], false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::select('staff_id', 'Staff', static::options(Staff::class), true),
+            CrudField::date('attendance_date', 'Date', false),
+            CrudField::text('time_in', 'Time In', false),
+            CrudField::text('time_out', 'Time Out', false),
+            CrudField::number('late_minutes', 'Late (min)', false),
+            CrudField::number('early_leave_minutes', 'Early Leave (min)', false),
+            CrudField::select('attendance_status', 'Status', ['present' => 'Present', 'absent' => 'Absent', 'leave' => 'Leave', 'late' => 'Late', 'half_day' => 'Half Day'], false),
+            CrudField::textarea('notes', 'Notes', false, 3),
         ];
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Staff;
 use App\Models\StaffDocument;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Staff Documents.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class StaffDocumentController extends BaseCrudController
 {
     protected string $modelClass = StaffDocument::class;
+
     protected string $routeSlug = 'staff-documents';
+
     protected ?string $permissionModule = 'staff_documents';
+
     protected string $singular = 'Staff Document';
+
     protected string $plural = 'Staff Documents';
+
     protected array $with = [];
+
     protected array $searchable = ['document_code', 'title'];
+
     protected array $columns = [
         'id' => '#',
         'document_code' => 'Code',
@@ -32,12 +40,12 @@ class StaffDocumentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('staff_id', 'Staff', static::options(\App\Models\Staff::class), true),
-            \App\Support\CrudField::text('document_code', 'Code', false),
-            \App\Support\CrudField::text('document_type', 'Type', false),
-            \App\Support\CrudField::text('title', 'Title', true),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::date('expiry_date', 'Expiry Date', false),
+            CrudField::select('staff_id', 'Staff', static::options(Staff::class), true),
+            CrudField::text('document_code', 'Code', false),
+            CrudField::text('document_type', 'Type', false),
+            CrudField::text('title', 'Title', true),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::date('expiry_date', 'Expiry Date', false),
         ];
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Invoice;
+use App\Models\Payment;
 use App\Models\Receipt;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Receipts.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class ReceiptController extends BaseCrudController
 {
     protected string $modelClass = Receipt::class;
+
     protected string $routeSlug = 'receipts';
+
     protected ?string $permissionModule = 'receipts';
+
     protected string $singular = 'Receipt';
+
     protected string $plural = 'Receipts';
+
     protected array $with = ['payment', 'invoice'];
+
     protected array $searchable = ['receipt_no'];
+
     protected array $columns = [
         'id' => '#',
         'receipt_no' => 'No.',
@@ -34,15 +43,15 @@ class ReceiptController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('receipt_no', 'No.', true),
-            \App\Support\CrudField::select('payment_id', 'Payment', static::options(\App\Models\Payment::class), false),
-            \App\Support\CrudField::select('invoice_id', 'Invoice', static::options(\App\Models\Invoice::class), false),
-            \App\Support\CrudField::decimal('amount_paid', 'Amount Paid', false),
-            \App\Support\CrudField::decimal('balance_due', 'Balance Due', false),
-            \App\Support\CrudField::date('receipt_date', 'Date', false),
-            \App\Support\CrudField::text('received_by', 'Received By', false),
-            \App\Support\CrudField::text('pdf_path', 'PDF Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('receipt_no', 'No.', true),
+            CrudField::select('payment_id', 'Payment', static::options(Payment::class), false),
+            CrudField::select('invoice_id', 'Invoice', static::options(Invoice::class), false),
+            CrudField::decimal('amount_paid', 'Amount Paid', false),
+            CrudField::decimal('balance_due', 'Balance Due', false),
+            CrudField::date('receipt_date', 'Date', false),
+            CrudField::text('received_by', 'Received By', false),
+            CrudField::text('pdf_path', 'PDF Path', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

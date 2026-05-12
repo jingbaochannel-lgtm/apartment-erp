@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\UtilityRate;
+use App\Models\UtilityType;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Utility Rates.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class UtilityRateController extends BaseCrudController
 {
     protected string $modelClass = UtilityRate::class;
+
     protected string $routeSlug = 'utility-rates';
+
     protected ?string $permissionModule = 'utility_rates';
+
     protected string $singular = 'Utility Rate';
+
     protected string $plural = 'Utility Rates';
+
     protected array $with = ['utilityType'];
+
     protected array $searchable = [];
+
     protected array $columns = [
         'id' => '#',
         'utilityType.name' => 'Utility',
@@ -34,12 +42,12 @@ class UtilityRateController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('utility_type_id', 'Utility Type', static::options(\App\Models\UtilityType::class), true),
-            \App\Support\CrudField::decimal('price_per_unit', 'Price per Unit', false),
-            \App\Support\CrudField::decimal('minimum_charge', 'Minimum Charge', false),
-            \App\Support\CrudField::date('effective_from', 'Effective From', false),
-            \App\Support\CrudField::date('effective_to', 'Effective To', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('utility_type_id', 'Utility Type', static::options(UtilityType::class), true),
+            CrudField::decimal('price_per_unit', 'Price per Unit', false),
+            CrudField::decimal('minimum_charge', 'Minimum Charge', false),
+            CrudField::date('effective_from', 'Effective From', false),
+            CrudField::date('effective_to', 'Effective To', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

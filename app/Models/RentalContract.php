@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\Reservation;
-use App\Models\Room;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RentalContract extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'rental_contracts';
 
@@ -63,16 +60,16 @@ class RentalContract extends Model
 
     public function renewals(): HasMany
     {
-        return $this->hasMany(\App\Models\ContractRenewal::class, 'contract_id');
+        return $this->hasMany(ContractRenewal::class, 'contract_id');
     }
 
     public function terminations(): HasMany
     {
-        return $this->hasMany(\App\Models\ContractTermination::class, 'contract_id');
+        return $this->hasMany(ContractTermination::class, 'contract_id');
     }
 
     public function invoices(): HasMany
     {
-        return $this->hasMany(\App\Models\Invoice::class, 'contract_id');
+        return $this->hasMany(Invoice::class, 'contract_id');
     }
 }

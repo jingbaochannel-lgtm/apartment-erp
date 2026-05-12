@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\BackupLog;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Backup Logs.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class BackupLogController extends BaseCrudController
 {
     protected string $modelClass = BackupLog::class;
+
     protected string $routeSlug = 'backup-logs';
+
     protected ?string $permissionModule = 'backup_logs';
+
     protected string $singular = 'Backup Log';
+
     protected string $plural = 'Backup Logs';
+
     protected array $with = [];
+
     protected array $searchable = ['backup_no', 'backup_type'];
+
     protected array $columns = [
         'id' => '#',
         'backup_no' => 'No.',
@@ -34,16 +41,16 @@ class BackupLogController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('backup_no', 'No.', true),
-            \App\Support\CrudField::select('backup_type', 'Type', ['full' => 'Full', 'incremental' => 'Incremental', 'manual' => 'Manual'], false),
-            \App\Support\CrudField::text('storage_location', 'Storage Location', false),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::number('file_size_bytes', 'File Size (bytes)', false),
-            \App\Support\CrudField::datetime('started_at', 'Started At', false),
-            \App\Support\CrudField::datetime('completed_at', 'Completed At', false),
-            \App\Support\CrudField::datetime('restore_tested_at', 'Restore Tested At', false),
-            \App\Support\CrudField::select('status', 'Status', ['running' => 'Running', 'completed' => 'Completed', 'failed' => 'Failed'], false),
-            \App\Support\CrudField::textarea('error_message', 'Error Message', false, 3),
+            CrudField::text('backup_no', 'No.', true),
+            CrudField::select('backup_type', 'Type', ['full' => 'Full', 'incremental' => 'Incremental', 'manual' => 'Manual'], false),
+            CrudField::text('storage_location', 'Storage Location', false),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::number('file_size_bytes', 'File Size (bytes)', false),
+            CrudField::datetime('started_at', 'Started At', false),
+            CrudField::datetime('completed_at', 'Completed At', false),
+            CrudField::datetime('restore_tested_at', 'Restore Tested At', false),
+            CrudField::select('status', 'Status', ['running' => 'Running', 'completed' => 'Completed', 'failed' => 'Failed'], false),
+            CrudField::textarea('error_message', 'Error Message', false, 3),
         ];
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\InventoryItem;
 use App\Models\StockMovement;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Stock Movements.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class StockMovementController extends BaseCrudController
 {
     protected string $modelClass = StockMovement::class;
+
     protected string $routeSlug = 'stock-movements';
+
     protected ?string $permissionModule = 'stock_movements';
+
     protected string $singular = 'Stock Movement';
+
     protected string $plural = 'Stock Movements';
+
     protected array $with = [];
+
     protected array $searchable = ['movement_no'];
+
     protected array $columns = [
         'id' => '#',
         'movement_no' => 'No.',
@@ -32,17 +40,17 @@ class StockMovementController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('movement_no', 'No.', true),
-            \App\Support\CrudField::select('inventory_item_id', 'Item', static::options(\App\Models\InventoryItem::class), true),
-            \App\Support\CrudField::select('movement_type', 'Type', ['in' => 'In', 'out' => 'Out', 'adjustment' => 'Adjustment', 'transfer' => 'Transfer'], false),
-            \App\Support\CrudField::decimal('quantity', 'Quantity', false),
-            \App\Support\CrudField::decimal('unit_cost', 'Unit Cost', false),
-            \App\Support\CrudField::decimal('total_cost', 'Total Cost', false),
-            \App\Support\CrudField::text('reference_type', 'Reference Type', false),
-            \App\Support\CrudField::number('reference_id', 'Reference ID', false),
-            \App\Support\CrudField::date('movement_date', 'Date', false),
-            \App\Support\CrudField::text('performed_by', 'Performed By', false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::text('movement_no', 'No.', true),
+            CrudField::select('inventory_item_id', 'Item', static::options(InventoryItem::class), true),
+            CrudField::select('movement_type', 'Type', ['in' => 'In', 'out' => 'Out', 'adjustment' => 'Adjustment', 'transfer' => 'Transfer'], false),
+            CrudField::decimal('quantity', 'Quantity', false),
+            CrudField::decimal('unit_cost', 'Unit Cost', false),
+            CrudField::decimal('total_cost', 'Total Cost', false),
+            CrudField::text('reference_type', 'Reference Type', false),
+            CrudField::number('reference_id', 'Reference ID', false),
+            CrudField::date('movement_date', 'Date', false),
+            CrudField::text('performed_by', 'Performed By', false),
+            CrudField::textarea('notes', 'Notes', false, 3),
         ];
     }
 

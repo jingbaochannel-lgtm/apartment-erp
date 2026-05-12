@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Concerns\Auditable;
 use App\Models\Concerns\BelongsToApartment;
-use App\Models\Department;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Model
 {
-    use SoftDeletes, Auditable, BelongsToApartment;
+    use Auditable, BelongsToApartment, SoftDeletes;
 
     protected $table = 'staff';
 
@@ -47,16 +46,16 @@ class Staff extends Model
 
     public function documents(): HasMany
     {
-        return $this->hasMany(\App\Models\StaffDocument::class, 'staff_id');
+        return $this->hasMany(StaffDocument::class, 'staff_id');
     }
 
     public function attendances(): HasMany
     {
-        return $this->hasMany(\App\Models\StaffAttendance::class, 'staff_id');
+        return $this->hasMany(StaffAttendance::class, 'staff_id');
     }
 
     public function payrolls(): HasMany
     {
-        return $this->hasMany(\App\Models\Payroll::class, 'staff_id');
+        return $this->hasMany(Payroll::class, 'staff_id');
     }
 }

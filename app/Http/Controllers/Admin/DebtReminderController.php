@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\DebtReminder;
+use App\Models\Invoice;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Debt Reminders.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class DebtReminderController extends BaseCrudController
 {
     protected string $modelClass = DebtReminder::class;
+
     protected string $routeSlug = 'debt-reminders';
+
     protected ?string $permissionModule = 'debt_reminders';
+
     protected string $singular = 'Debt Reminder';
+
     protected string $plural = 'Debt Reminders';
+
     protected array $with = ['tenant', 'invoice'];
+
     protected array $searchable = ['reminder_no'];
+
     protected array $columns = [
         'id' => '#',
         'reminder_no' => 'No.',
@@ -35,15 +44,15 @@ class DebtReminderController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('reminder_no', 'No.', true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::select('invoice_id', 'Invoice', static::options(\App\Models\Invoice::class), false),
-            \App\Support\CrudField::select('reminder_channel', 'Channel', ['sms' => 'SMS', 'email' => 'Email', 'phone' => 'Phone', 'in_person' => 'In Person'], false),
-            \App\Support\CrudField::date('reminder_date', 'Date', false),
-            \App\Support\CrudField::decimal('amount_due', 'Amount Due', false),
-            \App\Support\CrudField::number('overdue_days', 'Overdue Days', false),
-            \App\Support\CrudField::textarea('message', 'Message', false, 3),
-            \App\Support\CrudField::select('delivery_status', 'Delivery Status', ['pending' => 'Pending', 'sent' => 'Sent', 'failed' => 'Failed'], false),
+            CrudField::text('reminder_no', 'No.', true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::select('invoice_id', 'Invoice', static::options(Invoice::class), false),
+            CrudField::select('reminder_channel', 'Channel', ['sms' => 'SMS', 'email' => 'Email', 'phone' => 'Phone', 'in_person' => 'In Person'], false),
+            CrudField::date('reminder_date', 'Date', false),
+            CrudField::decimal('amount_due', 'Amount Due', false),
+            CrudField::number('overdue_days', 'Overdue Days', false),
+            CrudField::textarea('message', 'Message', false, 3),
+            CrudField::select('delivery_status', 'Delivery Status', ['pending' => 'Pending', 'sent' => 'Sent', 'failed' => 'Failed'], false),
         ];
     }
 

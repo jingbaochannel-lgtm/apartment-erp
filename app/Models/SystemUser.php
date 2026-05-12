@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\Auditable;
-use App\Models\Staff;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 
 class SystemUser extends Authenticatable
 {
-    use Notifiable, SoftDeletes, Auditable;
+    use Auditable, Notifiable, SoftDeletes;
 
     protected $table = 'system_users';
 
@@ -65,11 +63,11 @@ class SystemUser extends Authenticatable
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemRole::class, 'user_role', 'user_id', 'role_id');
+        return $this->belongsToMany(SystemRole::class, 'user_role', 'user_id', 'role_id');
     }
 
     public function directPermissions(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\SystemPermission::class, 'user_permission', 'user_id', 'permission_id');
+        return $this->belongsToMany(SystemPermission::class, 'user_permission', 'user_id', 'permission_id');
     }
 }

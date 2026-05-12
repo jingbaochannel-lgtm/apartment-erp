@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\RentalContract;
+use App\Models\Reservation;
+use App\Models\Room;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Rental Contracts.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class RentalContractController extends BaseCrudController
 {
     protected string $modelClass = RentalContract::class;
+
     protected string $routeSlug = 'rental-contracts';
+
     protected ?string $permissionModule = 'rental_contracts';
+
     protected string $singular = 'Rental Contract';
+
     protected string $plural = 'Rental Contracts';
+
     protected array $with = ['tenant', 'room'];
+
     protected array $searchable = ['contract_no'];
+
     protected array $columns = [
         'id' => '#',
         'contract_no' => 'No.',
@@ -35,19 +45,19 @@ class RentalContractController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('contract_no', 'No.', true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), true),
-            \App\Support\CrudField::select('reservation_id', 'Reservation', static::options(\App\Models\Reservation::class), false),
-            \App\Support\CrudField::date('start_date', 'Start Date', true),
-            \App\Support\CrudField::date('end_date', 'End Date', true),
-            \App\Support\CrudField::decimal('monthly_rent', 'Monthly Rent', true),
-            \App\Support\CrudField::decimal('deposit_amount', 'Deposit', false),
-            \App\Support\CrudField::number('payment_due_day', 'Payment Due Day', false),
-            \App\Support\CrudField::textarea('terms_conditions', 'Terms & Conditions', false, 6),
-            \App\Support\CrudField::text('signed_contract_path', 'Signed Contract Path', false),
-            \App\Support\CrudField::date('signed_date', 'Signed Date', false),
-            \App\Support\CrudField::select('status', 'Status', ['draft' => 'Draft', 'active' => 'Active', 'expired' => 'Expired', 'terminated' => 'Terminated'], false),
+            CrudField::text('contract_no', 'No.', true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), true),
+            CrudField::select('reservation_id', 'Reservation', static::options(Reservation::class), false),
+            CrudField::date('start_date', 'Start Date', true),
+            CrudField::date('end_date', 'End Date', true),
+            CrudField::decimal('monthly_rent', 'Monthly Rent', true),
+            CrudField::decimal('deposit_amount', 'Deposit', false),
+            CrudField::number('payment_due_day', 'Payment Due Day', false),
+            CrudField::textarea('terms_conditions', 'Terms & Conditions', false, 6),
+            CrudField::text('signed_contract_path', 'Signed Contract Path', false),
+            CrudField::date('signed_date', 'Signed Date', false),
+            CrudField::select('status', 'Status', ['draft' => 'Draft', 'active' => 'Active', 'expired' => 'Expired', 'terminated' => 'Terminated'], false),
         ];
     }
 

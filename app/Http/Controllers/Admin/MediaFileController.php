@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\MediaFile;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Media Files.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class MediaFileController extends BaseCrudController
 {
     protected string $modelClass = MediaFile::class;
+
     protected string $routeSlug = 'media-files';
+
     protected ?string $permissionModule = 'media_files';
+
     protected string $singular = 'Media File';
+
     protected string $plural = 'Media Files';
+
     protected array $with = [];
+
     protected array $searchable = ['original_name', 'collection'];
+
     protected array $columns = [
         'id' => '#',
         'original_name' => 'Name',
@@ -34,16 +41,16 @@ class MediaFileController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('original_name', 'Original Name', true),
-            \App\Support\CrudField::text('file_name', 'File Name', false),
-            \App\Support\CrudField::text('collection', 'Collection', false),
-            \App\Support\CrudField::text('fileable_type', 'Owner Type', false),
-            \App\Support\CrudField::number('fileable_id', 'Owner ID', false),
-            \App\Support\CrudField::text('mime_type', 'MIME Type', false),
-            \App\Support\CrudField::text('disk', 'Disk', false),
-            \App\Support\CrudField::text('path', 'Path', false),
-            \App\Support\CrudField::number('size_bytes', 'Size (bytes)', false),
-            \App\Support\CrudField::text('uploaded_by', 'Uploaded By', false),
+            CrudField::text('original_name', 'Original Name', true),
+            CrudField::text('file_name', 'File Name', false),
+            CrudField::text('collection', 'Collection', false),
+            CrudField::text('fileable_type', 'Owner Type', false),
+            CrudField::number('fileable_id', 'Owner ID', false),
+            CrudField::text('mime_type', 'MIME Type', false),
+            CrudField::text('disk', 'Disk', false),
+            CrudField::text('path', 'Path', false),
+            CrudField::number('size_bytes', 'Size (bytes)', false),
+            CrudField::text('uploaded_by', 'Uploaded By', false),
         ];
     }
 

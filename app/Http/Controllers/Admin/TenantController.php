@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Tenants.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class TenantController extends BaseCrudController
 {
     protected string $modelClass = Tenant::class;
+
     protected string $routeSlug = 'tenants';
+
     protected ?string $permissionModule = 'tenants';
+
     protected string $singular = 'Tenant';
+
     protected string $plural = 'Tenants';
+
     protected array $with = [];
+
     protected array $searchable = ['tenant_code', 'full_name', 'phone', 'email', 'id_card_number'];
+
     protected array $columns = [
         'id' => '#',
         'tenant_code' => 'Code',
@@ -34,19 +41,19 @@ class TenantController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('tenant_code', 'Code', true),
-            \App\Support\CrudField::text('full_name', 'Full Name', true),
-            \App\Support\CrudField::select('gender', 'Gender', ['male' => 'Male', 'female' => 'Female', 'other' => 'Other'], false),
-            \App\Support\CrudField::date('date_of_birth', 'Date of Birth', false),
-            \App\Support\CrudField::text('phone', 'Phone', false),
-            \App\Support\CrudField::email('email', 'Email', false),
-            \App\Support\CrudField::textarea('address', 'Address', false, 3),
-            \App\Support\CrudField::text('occupation', 'Occupation', false),
-            \App\Support\CrudField::text('nationality', 'Nationality', false),
-            \App\Support\CrudField::text('id_card_number', 'ID Card #', false),
-            \App\Support\CrudField::text('passport_number', 'Passport #', false),
-            \App\Support\CrudField::text('photo_path', 'Photo Path', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('tenant_code', 'Code', true),
+            CrudField::text('full_name', 'Full Name', true),
+            CrudField::select('gender', 'Gender', ['male' => 'Male', 'female' => 'Female', 'other' => 'Other'], false),
+            CrudField::date('date_of_birth', 'Date of Birth', false),
+            CrudField::text('phone', 'Phone', false),
+            CrudField::email('email', 'Email', false),
+            CrudField::textarea('address', 'Address', false, 3),
+            CrudField::text('occupation', 'Occupation', false),
+            CrudField::text('nationality', 'Nationality', false),
+            CrudField::text('id_card_number', 'ID Card #', false),
+            CrudField::text('passport_number', 'Passport #', false),
+            CrudField::text('photo_path', 'Photo Path', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

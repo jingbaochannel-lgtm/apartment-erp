@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\MaintenanceRequest;
+use App\Models\Room;
+use App\Models\Staff;
+use App\Models\Tenant;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Maintenance Requests.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class MaintenanceRequestController extends BaseCrudController
 {
     protected string $modelClass = MaintenanceRequest::class;
+
     protected string $routeSlug = 'maintenance-requests';
+
     protected ?string $permissionModule = 'maintenance_requests';
+
     protected string $singular = 'Maintenance Request';
+
     protected string $plural = 'Maintenance Requests';
+
     protected array $with = ['room', 'tenant', 'assignedStaff'];
+
     protected array $searchable = ['request_no', 'problem_type'];
+
     protected array $columns = [
         'id' => '#',
         'request_no' => 'No.',
@@ -35,21 +45,21 @@ class MaintenanceRequestController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('request_no', 'No.', true),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), true),
-            \App\Support\CrudField::select('tenant_id', 'Tenant', static::options(\App\Models\Tenant::class), false),
-            \App\Support\CrudField::select('assigned_staff_id', 'Assigned Staff', static::options(\App\Models\Staff::class), false),
-            \App\Support\CrudField::text('problem_type', 'Problem Type', false),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::select('priority', 'Priority', ['low' => 'Low', 'medium' => 'Medium', 'high' => 'High', 'urgent' => 'Urgent'], false),
-            \App\Support\CrudField::decimal('material_cost', 'Material Cost', false),
-            \App\Support\CrudField::decimal('labor_cost', 'Labor Cost', false),
-            \App\Support\CrudField::decimal('service_cost', 'Service Cost', false),
-            \App\Support\CrudField::decimal('other_cost', 'Other Cost', false),
-            \App\Support\CrudField::decimal('total_cost', 'Total Cost', false),
-            \App\Support\CrudField::datetime('requested_at', 'Requested At', false),
-            \App\Support\CrudField::datetime('completed_at', 'Completed At', false),
-            \App\Support\CrudField::select('status', 'Status', ['pending' => 'Pending', 'in_progress' => 'In Progress', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('request_no', 'No.', true),
+            CrudField::select('room_id', 'Room', static::options(Room::class), true),
+            CrudField::select('tenant_id', 'Tenant', static::options(Tenant::class), false),
+            CrudField::select('assigned_staff_id', 'Assigned Staff', static::options(Staff::class), false),
+            CrudField::text('problem_type', 'Problem Type', false),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::select('priority', 'Priority', ['low' => 'Low', 'medium' => 'Medium', 'high' => 'High', 'urgent' => 'Urgent'], false),
+            CrudField::decimal('material_cost', 'Material Cost', false),
+            CrudField::decimal('labor_cost', 'Labor Cost', false),
+            CrudField::decimal('service_cost', 'Service Cost', false),
+            CrudField::decimal('other_cost', 'Other Cost', false),
+            CrudField::decimal('total_cost', 'Total Cost', false),
+            CrudField::datetime('requested_at', 'Requested At', false),
+            CrudField::datetime('completed_at', 'Completed At', false),
+            CrudField::select('status', 'Status', ['pending' => 'Pending', 'in_progress' => 'In Progress', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

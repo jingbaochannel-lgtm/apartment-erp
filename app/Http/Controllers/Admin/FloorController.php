@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Building;
 use App\Models\Floor;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Floors.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class FloorController extends BaseCrudController
 {
     protected string $modelClass = Floor::class;
+
     protected string $routeSlug = 'floors';
+
     protected ?string $permissionModule = 'floors';
+
     protected string $singular = 'Floor';
+
     protected string $plural = 'Floors';
+
     protected array $with = ['building'];
+
     protected array $searchable = ['floor_code'];
+
     protected array $columns = [
         'id' => '#',
         'building.name' => 'Building',
@@ -33,13 +41,13 @@ class FloorController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('building_id', 'Building', static::options(\App\Models\Building::class), true),
-            \App\Support\CrudField::text('floor_code', 'Code', true),
-            \App\Support\CrudField::number('floor_number', 'Floor Number', true),
-            \App\Support\CrudField::number('room_count', 'Rooms', false),
-            \App\Support\CrudField::text('floor_map_path', 'Map Path', false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('building_id', 'Building', static::options(Building::class), true),
+            CrudField::text('floor_code', 'Code', true),
+            CrudField::number('floor_number', 'Floor Number', true),
+            CrudField::number('room_count', 'Rooms', false),
+            CrudField::text('floor_map_path', 'Map Path', false),
+            CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

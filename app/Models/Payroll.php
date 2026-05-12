@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payroll extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'payrolls';
 
@@ -45,6 +45,6 @@ class Payroll extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(\App\Models\PayrollItem::class, 'payroll_id');
+        return $this->hasMany(PayrollItem::class, 'payroll_id');
     }
 }

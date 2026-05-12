@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Building;
 use App\Models\PreventiveMaintenanceSchedule;
+use App\Models\Room;
+use App\Models\Staff;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Preventive Maintenance.
@@ -15,12 +18,19 @@ use Illuminate\Http\Request;
 class PreventiveMaintenanceScheduleController extends BaseCrudController
 {
     protected string $modelClass = PreventiveMaintenanceSchedule::class;
+
     protected string $routeSlug = 'preventive-maintenance-schedules';
+
     protected ?string $permissionModule = 'preventive_maintenance_schedules';
+
     protected string $singular = 'Preventive Maintenance';
+
     protected string $plural = 'Preventive Maintenance';
+
     protected array $with = [];
+
     protected array $searchable = ['schedule_no', 'maintenance_type'];
+
     protected array $columns = [
         'id' => '#',
         'schedule_no' => 'No.',
@@ -33,16 +43,16 @@ class PreventiveMaintenanceScheduleController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('schedule_no', 'No.', true),
-            \App\Support\CrudField::select('building_id', 'Building', static::options(\App\Models\Building::class), false),
-            \App\Support\CrudField::select('room_id', 'Room', static::options(\App\Models\Room::class), false),
-            \App\Support\CrudField::select('assigned_staff_id', 'Assigned Staff', static::options(\App\Models\Staff::class), false),
-            \App\Support\CrudField::text('maintenance_type', 'Type', false),
-            \App\Support\CrudField::date('scheduled_date', 'Scheduled Date', false),
-            \App\Support\CrudField::date('completed_date', 'Completed Date', false),
-            \App\Support\CrudField::textarea('checklist', 'Checklist', false, 4),
-            \App\Support\CrudField::textarea('result_notes', 'Result Notes', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['scheduled' => 'Scheduled', 'in_progress' => 'In Progress', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], false),
+            CrudField::text('schedule_no', 'No.', true),
+            CrudField::select('building_id', 'Building', static::options(Building::class), false),
+            CrudField::select('room_id', 'Room', static::options(Room::class), false),
+            CrudField::select('assigned_staff_id', 'Assigned Staff', static::options(Staff::class), false),
+            CrudField::text('maintenance_type', 'Type', false),
+            CrudField::date('scheduled_date', 'Scheduled Date', false),
+            CrudField::date('completed_date', 'Completed Date', false),
+            CrudField::textarea('checklist', 'Checklist', false, 4),
+            CrudField::textarea('result_notes', 'Result Notes', false, 3),
+            CrudField::select('status', 'Status', ['scheduled' => 'Scheduled', 'in_progress' => 'In Progress', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], false),
         ];
     }
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Payroll;
+use App\Models\Staff;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Payrolls.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class PayrollController extends BaseCrudController
 {
     protected string $modelClass = Payroll::class;
+
     protected string $routeSlug = 'payrolls';
+
     protected ?string $permissionModule = 'payrolls';
+
     protected string $singular = 'Payroll';
+
     protected string $plural = 'Payrolls';
+
     protected array $with = [];
+
     protected array $searchable = ['payroll_no', 'payroll_month'];
+
     protected array $columns = [
         'id' => '#',
         'payroll_no' => 'No.',
@@ -33,17 +41,17 @@ class PayrollController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('payroll_no', 'No.', true),
-            \App\Support\CrudField::select('staff_id', 'Staff', static::options(\App\Models\Staff::class), true),
-            \App\Support\CrudField::text('payroll_month', 'Month (YYYY-MM)', false),
-            \App\Support\CrudField::decimal('basic_salary', 'Basic Salary', false),
-            \App\Support\CrudField::decimal('overtime_amount', 'Overtime', false),
-            \App\Support\CrudField::decimal('allowance_amount', 'Allowance', false),
-            \App\Support\CrudField::decimal('deduction_amount', 'Deduction', false),
-            \App\Support\CrudField::decimal('bonus_amount', 'Bonus', false),
-            \App\Support\CrudField::decimal('net_salary', 'Net Salary', false),
-            \App\Support\CrudField::date('paid_date', 'Paid Date', false),
-            \App\Support\CrudField::select('status', 'Status', ['draft' => 'Draft', 'approved' => 'Approved', 'paid' => 'Paid'], false),
+            CrudField::text('payroll_no', 'No.', true),
+            CrudField::select('staff_id', 'Staff', static::options(Staff::class), true),
+            CrudField::text('payroll_month', 'Month (YYYY-MM)', false),
+            CrudField::decimal('basic_salary', 'Basic Salary', false),
+            CrudField::decimal('overtime_amount', 'Overtime', false),
+            CrudField::decimal('allowance_amount', 'Allowance', false),
+            CrudField::decimal('deduction_amount', 'Deduction', false),
+            CrudField::decimal('bonus_amount', 'Bonus', false),
+            CrudField::decimal('net_salary', 'Net Salary', false),
+            CrudField::date('paid_date', 'Paid Date', false),
+            CrudField::select('status', 'Status', ['draft' => 'Draft', 'approved' => 'Approved', 'paid' => 'Paid'], false),
         ];
     }
 

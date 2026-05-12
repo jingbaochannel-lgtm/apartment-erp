@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\GoodsReceipt;
+use App\Models\PurchaseOrder;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Goods Receipts.
@@ -15,12 +16,19 @@ use Illuminate\Http\Request;
 class GoodsReceiptController extends BaseCrudController
 {
     protected string $modelClass = GoodsReceipt::class;
+
     protected string $routeSlug = 'goods-receipts';
+
     protected ?string $permissionModule = 'goods_receipts';
+
     protected string $singular = 'Goods Receipt';
+
     protected string $plural = 'Goods Receipts';
+
     protected array $with = [];
+
     protected array $searchable = ['grn_no'];
+
     protected array $columns = [
         'id' => '#',
         'grn_no' => 'GRN No.',
@@ -31,12 +39,12 @@ class GoodsReceiptController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('grn_no', 'GRN No.', true),
-            \App\Support\CrudField::select('purchase_order_id', 'Purchase Order', static::options(\App\Models\PurchaseOrder::class), false),
-            \App\Support\CrudField::date('received_date', 'Received Date', false),
-            \App\Support\CrudField::text('received_by', 'Received By', false),
-            \App\Support\CrudField::textarea('notes', 'Notes', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['received' => 'Received', 'partial' => 'Partial', 'rejected' => 'Rejected'], false),
+            CrudField::text('grn_no', 'GRN No.', true),
+            CrudField::select('purchase_order_id', 'Purchase Order', static::options(PurchaseOrder::class), false),
+            CrudField::date('received_date', 'Received Date', false),
+            CrudField::text('received_by', 'Received By', false),
+            CrudField::textarea('notes', 'Notes', false, 3),
+            CrudField::select('status', 'Status', ['received' => 'Received', 'partial' => 'Partial', 'rejected' => 'Rejected'], false),
         ];
     }
 

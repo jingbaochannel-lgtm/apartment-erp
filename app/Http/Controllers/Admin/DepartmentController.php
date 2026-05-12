@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Department;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Departments.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class DepartmentController extends BaseCrudController
 {
     protected string $modelClass = Department::class;
+
     protected string $routeSlug = 'departments';
+
     protected ?string $permissionModule = 'departments';
+
     protected string $singular = 'Department';
+
     protected string $plural = 'Departments';
+
     protected array $with = [];
+
     protected array $searchable = ['department_code', 'name'];
+
     protected array $columns = [
         'id' => '#',
         'department_code' => 'Code',
@@ -32,10 +39,10 @@ class DepartmentController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('department_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::textarea('description', 'Description', false, 3),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('department_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::textarea('description', 'Description', false, 3),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CleaningTask extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'cleaning_tasks';
 
@@ -38,6 +38,6 @@ class CleaningTask extends Model
 
     public function checklistItems(): HasMany
     {
-        return $this->hasMany(\App\Models\CleaningChecklistItem::class, 'cleaning_task_id');
+        return $this->hasMany(CleaningChecklistItem::class, 'cleaning_task_id');
     }
 }

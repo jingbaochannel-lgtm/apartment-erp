@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ReportExport;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Report Exports.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class ReportExportController extends BaseCrudController
 {
     protected string $modelClass = ReportExport::class;
+
     protected string $routeSlug = 'report-exports';
+
     protected ?string $permissionModule = 'report_exports';
+
     protected string $singular = 'Report Export';
+
     protected string $plural = 'Report Exports';
+
     protected array $with = [];
+
     protected array $searchable = ['export_no', 'report_type'];
+
     protected array $columns = [
         'id' => '#',
         'export_no' => 'No.',
@@ -33,15 +40,15 @@ class ReportExportController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('export_no', 'No.', true),
-            \App\Support\CrudField::text('report_type', 'Report Type', false),
-            \App\Support\CrudField::textarea('filters', 'Filters (JSON)', false, 3),
-            \App\Support\CrudField::select('format', 'Format', ['pdf' => 'PDF', 'excel' => 'Excel', 'csv' => 'CSV'], false),
-            \App\Support\CrudField::text('file_path', 'File Path', false),
-            \App\Support\CrudField::text('requested_by', 'Requested By', false),
-            \App\Support\CrudField::datetime('requested_at', 'Requested At', false),
-            \App\Support\CrudField::datetime('completed_at', 'Completed At', false),
-            \App\Support\CrudField::select('status', 'Status', ['queued' => 'Queued', 'processing' => 'Processing', 'completed' => 'Completed', 'failed' => 'Failed'], false),
+            CrudField::text('export_no', 'No.', true),
+            CrudField::text('report_type', 'Report Type', false),
+            CrudField::textarea('filters', 'Filters (JSON)', false, 3),
+            CrudField::select('format', 'Format', ['pdf' => 'PDF', 'excel' => 'Excel', 'csv' => 'CSV'], false),
+            CrudField::text('file_path', 'File Path', false),
+            CrudField::text('requested_by', 'Requested By', false),
+            CrudField::datetime('requested_at', 'Requested At', false),
+            CrudField::datetime('completed_at', 'Completed At', false),
+            CrudField::select('status', 'Status', ['queued' => 'Queued', 'processing' => 'Processing', 'completed' => 'Completed', 'failed' => 'Failed'], false),
         ];
     }
 

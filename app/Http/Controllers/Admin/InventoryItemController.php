@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\InventoryCategory;
 use App\Models\InventoryItem;
+use App\Models\Supplier;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Inventory Items.
@@ -15,12 +17,19 @@ use Illuminate\Http\Request;
 class InventoryItemController extends BaseCrudController
 {
     protected string $modelClass = InventoryItem::class;
+
     protected string $routeSlug = 'inventory-items';
+
     protected ?string $permissionModule = 'inventory_items';
+
     protected string $singular = 'Inventory Item';
+
     protected string $plural = 'Inventory Items';
+
     protected array $with = ['category', 'supplier'];
+
     protected array $searchable = ['item_code', 'item_name'];
+
     protected array $columns = [
         'id' => '#',
         'item_code' => 'Code',
@@ -35,15 +44,15 @@ class InventoryItemController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::select('inventory_category_id', 'Category', static::options(\App\Models\InventoryCategory::class), true),
-            \App\Support\CrudField::select('supplier_id', 'Supplier', static::options(\App\Models\Supplier::class), false),
-            \App\Support\CrudField::text('item_code', 'Code', true),
-            \App\Support\CrudField::text('item_name', 'Name', true),
-            \App\Support\CrudField::text('unit', 'Unit', false),
-            \App\Support\CrudField::decimal('purchase_price', 'Purchase Price', false),
-            \App\Support\CrudField::decimal('current_stock', 'Current Stock', false),
-            \App\Support\CrudField::decimal('minimum_stock', 'Minimum Stock', false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::select('inventory_category_id', 'Category', static::options(InventoryCategory::class), true),
+            CrudField::select('supplier_id', 'Supplier', static::options(Supplier::class), false),
+            CrudField::text('item_code', 'Code', true),
+            CrudField::text('item_name', 'Name', true),
+            CrudField::text('unit', 'Unit', false),
+            CrudField::decimal('purchase_price', 'Purchase Price', false),
+            CrudField::decimal('current_stock', 'Current Stock', false),
+            CrudField::decimal('minimum_stock', 'Minimum Stock', false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 

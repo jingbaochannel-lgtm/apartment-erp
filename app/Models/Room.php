@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Building;
 use App\Models\Concerns\Auditable;
-use App\Models\Floor;
-use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-    use SoftDeletes, Auditable;
+    use Auditable, SoftDeletes;
 
     protected $table = 'rooms';
 
@@ -61,11 +58,11 @@ class Room extends Model
 
     public function contracts(): HasMany
     {
-        return $this->hasMany(\App\Models\RentalContract::class, 'room_id');
+        return $this->hasMany(RentalContract::class, 'room_id');
     }
 
     public function assets(): HasMany
     {
-        return $this->hasMany(\App\Models\RoomAsset::class, 'room_id');
+        return $this->hasMany(RoomAsset::class, 'room_id');
     }
 }

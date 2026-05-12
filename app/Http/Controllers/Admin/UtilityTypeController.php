@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\UtilityType;
+use App\Support\CrudField;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 /**
  * Auto-generated CRUD controller for Utility Types.
@@ -15,12 +15,19 @@ use Illuminate\Http\Request;
 class UtilityTypeController extends BaseCrudController
 {
     protected string $modelClass = UtilityType::class;
+
     protected string $routeSlug = 'utility-types';
+
     protected ?string $permissionModule = 'utility_types';
+
     protected string $singular = 'Utility Type';
+
     protected string $plural = 'Utility Types';
+
     protected array $with = [];
+
     protected array $searchable = ['utility_code', 'name'];
+
     protected array $columns = [
         'id' => '#',
         'utility_code' => 'Code',
@@ -33,11 +40,11 @@ class UtilityTypeController extends BaseCrudController
     protected function fields(): array
     {
         return [
-            \App\Support\CrudField::text('utility_code', 'Code', true),
-            \App\Support\CrudField::text('name', 'Name', true),
-            \App\Support\CrudField::text('unit', 'Unit', false),
-            \App\Support\CrudField::select('billing_method', 'Billing Method', ['metered' => 'Metered', 'flat' => 'Flat', 'tiered' => 'Tiered'], false),
-            \App\Support\CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
+            CrudField::text('utility_code', 'Code', true),
+            CrudField::text('name', 'Name', true),
+            CrudField::text('unit', 'Unit', false),
+            CrudField::select('billing_method', 'Billing Method', ['metered' => 'Metered', 'flat' => 'Flat', 'tiered' => 'Tiered'], false),
+            CrudField::select('status', 'Status', ['active' => 'Active', 'inactive' => 'Inactive'], false),
         ];
     }
 
