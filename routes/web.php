@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /* ----------------------------------------------------------------------
- | Root — bounce visitors straight into the admin dashboard. Auth flow is
- | wired separately under `routes/auth.php` (Laravel default scaffolding).
+ | Root — bounce visitors straight into the admin dashboard. Unauthenticated
+ | requests are caught by the `auth` middleware on `/admin/*` and redirected
+ | to the login form below.
  *--------------------------------------------------------------------- */
 Route::get('/', fn () => redirect()->route('admin.dashboard'));
 
@@ -19,12 +21,24 @@ Route::post('/language', [LanguageController::class, 'switch'])->name('language.
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.set.get');
 
 /* ----------------------------------------------------------------------
+ | Auth — minimal session login. Authenticates against the standard
+ | Laravel `users` table seeded by `SystemUserSeeder`.
+ *--------------------------------------------------------------------- */
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+});
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+
+/* ----------------------------------------------------------------------
  | Admin / branch-switch surface. The list of `$resources` mirrors
  | `scripts/controller_definitions.php` 1:1 — each entry produces a
  | full Laravel resource controller plus an extra `data` route that
  | feeds Yajra DataTables server-side payloads.
  *--------------------------------------------------------------------- */
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('/apartment-switch', [Admin\ApartmentSwitcherController::class, 'update'])
@@ -133,4 +147,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
  | Public-facing apartment switcher entry (used by the navbar form).
  *--------------------------------------------------------------------- */
 Route::post('/apartment-switch', [Admin\ApartmentSwitcherController::class, 'update'])
+    ->middleware('auth')
     ->name('apartment.switch');

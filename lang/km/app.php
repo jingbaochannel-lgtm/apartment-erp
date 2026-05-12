@@ -68,6 +68,18 @@ return [
         'language_changed' => 'បានប្តូរភាសារួចរាល់។',
         'branch_changed' => 'បានប្តូរសាខារួចរាល់។',
         'validation_failed' => 'សូមកែខុសខាងក្រោម។',
+        'logged_in' => 'សូមស្វាគមន៍ត្រឡប់មកវិញ។',
+        'logged_out' => 'អ្នកបានចាកចេញរួចរាល់។',
+    ],
+
+    'auth' => [
+        'sign_in' => 'ចូលប្រើ',
+        'email' => 'អ៊ីមែល',
+        'password' => 'ពាក្យសម្ងាត់',
+        'remember_me' => 'ចងចាំខ្ញុំ',
+        'failed' => 'អ៊ីមែល ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវ។',
+        'guest' => 'អ្នកប្រើ',
+        'demo_hint' => 'សាកល្បង៖ admin@apartment-erp.local / password',
     ],
 
     'dialogs' => [

@@ -34,12 +34,12 @@
     (function ($) {
       'use strict';
 
-      window.AppL10n = @json([
+      window.AppL10n = {!! json_encode([
           'locale' => app()->getLocale(),
           'datatables' => __('app.datatables'),
           'dialogs' => __('app.dialogs'),
           'flash' => __('app.flash'),
-      ]);
+      ], JSON_UNESCAPED_UNICODE) !!};
 
       // CSRF for every jQuery AJAX call.
       $.ajaxSetup({
